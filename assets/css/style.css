@@ -1,0 +1,16 @@
+#article-list {
+  height: 100%;
+}
+
+.article-title {
+  border: solid 2px black;
+  min-height: 10%;
+  margin-bottom: 3%;
+  padding: 1%;
+}
+
+.article-title:hover {
+  background-color: rgb(242, 163, 80);
+  cursor: hand;
+  cursor: pointer;
+}
