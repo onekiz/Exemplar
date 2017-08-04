@@ -62,7 +62,7 @@ var config = {
 firebase.initializeApp(config);
 
 
-var timeArray =[];
+var ref;
 
 // add click listener to each article title
 divArticleList.on('click', '.article-title', function(){
@@ -71,12 +71,11 @@ divArticleList.on('click', '.article-title', function(){
 
         var key = firebase.auth().currentUser.uid;
 
-        // console.log(articleList[currentIndex]["sru:recordData"]["pam:message"]["pam:article"]["xhtml:head"]);
-        var timer = 0;
+        var count = 0;
         var day = new Date();
         var postData = {
 
-              paperTime: timer,
+              paperSearchTerm:searchTerm,
               paperLink: articleList[currentIndex].link,
               paperID: articleList[currentIndex].id,
               paperPublisher: articleList[currentIndex]["sru:recordData"]["pam:message"]["pam:article"]["xhtml:head"]["dc:publisher"],
@@ -84,19 +83,127 @@ divArticleList.on('click', '.article-title', function(){
               paperISSN: articleList[currentIndex]["sru:recordData"]["pam:message"]["pam:article"]["xhtml:head"]["prism:issn"],
               paperDate: articleList[currentIndex]["sru:recordData"]["pam:message"]["pam:article"]["xhtml:head"]["prism:publicationDate"],
               paperPubName: articleList[currentIndex]["sru:recordData"]["pam:message"]["pam:article"]["xhtml:head"]["prism:publicationName"],
-              paperReadDay: day
+              paperDate: day,
+              paperTime: "empty"
               };
 
-        firebase.database().ref("/users/"+key+"/papers/"+searchTerm + "/" + currentIndex).update(postData);
+        ////////////updating the firebase with new data that clicked paper
+        ref = firebase.database().ref("/users/"+key+"/papers/"+day.getTime()+"/" + currentIndex);
+        firebase.database().ref("/users/"+key+"/papers/"+day.getTime()+"/" + currentIndex).update(postData);
+
+        /////////////controlling timer and appearance of timer and table///////
+        stopwatch.start();
+        $(".row").hide();
+        $("#wrapper").attr("class", "show");
+        window.open(articleList[currentIndex].link);
+});
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////TIMER FOR CLICKED LINK/////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+//  Variable that will hold our setInterval that runs the stopwatch
+var intervalId;
 
+//prevents the clock from being sped up unnecessarily
+var clockRunning = false;
+var converted;
+// Our stopwatch object
+var stopwatch = {
+
+  time: 0,
+  lap: 1,
+
+  reset: function() {
+
+    stopwatch.time = 0;
+    stopwatch.lap = 1;
+
+    // DONE: Change the "display" div to "00:00."
+    $("#display").html("00:00");
+
+    // DONE: Empty the "laps" div.
+    $("#laps").html("");
+  },
+  start: function() {
+
+    // DONE: Use setInterval to start the count here and set the clock to running.
+    if (!clockRunning) {
+        intervalId = setInterval(stopwatch.count, 1000);
+        clockRunning = true;
+    }
+  },
+  stop: function() {
+
+    // DONE: Use clearInterval to stop the count here and set the clock to not be running.
+    clearInterval(intervalId);
+    clockRunning = false;
+  },
+  recordLap: function() {
+
+    // DONE: Get the current time, pass that into the stopwatch.timeConverter function,
+    //       and save the result in a variable.
+    var converted = stopwatch.timeConverter(stopwatch.time);
+
+    // DONE: Add the current lap and time to the "laps" div.
+    $("#laps").append("<p>Lap " + stopwatch.lap + " : " + converted + "</p>");
+
+    // DONE: Increment lap by 1. Remember, we can't use "this" here.
+    stopwatch.lap++;
+  },
+  count: function() {
+
+    // DONE: increment time by 1, remember we cant use "this" here.
+    stopwatch.time++;
+
+    // DONE: Get the current time, pass that into the stopwatch.timeConverter function,
+    //       and save the result in a variable.
+     converted = stopwatch.timeConverter(stopwatch.time);
+    //console.log(converted);
+
+    // DONE: Use the variable we just created to show the converted time in the "display" div.
+    $("#display").html(converted);
+  },
+  timeConverter: function(t) {
+
+    var minutes = Math.floor(t / 60);
+    var seconds = t - (minutes * 60);
+
+    if (seconds < 10) {
+      seconds = "0" + seconds;
+    }
+
+    if (minutes === 0) {
+      minutes = "00";
+    }
+    else if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
+
+    return minutes + ":" + seconds;
+  }
+};
+
+/////////stopping timer and pushing time to firebase/////////
+$(document).on("click", "#stop", function(){
+
+    ref.once("value", function(user){
+      ref.child("paperTime").set(converted);
+    });
+
+    stopwatch.stop();
+    $("#wrapper").hide();
+    $(".row").show();
+    stopwatch.time=0;
 });
 
 
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+////listening any change on state of firebase
 firebase.auth().onAuthStateChanged(function(user){
   if(user){
     $("#displayName").html(" Welcome " + user.displayName+ " "+user.email);
@@ -107,16 +214,15 @@ firebase.auth().onAuthStateChanged(function(user){
 });
 
 //main reference firebase
-var ref = firebase.database().ref("/users");
-
-ref.on("value", function(data){
-  var keyz = firebase.auth().currentUser.uid;
-  var dat = data.val();
+// var ref = firebase.database().ref("/users");
+//
+// // ref.on("value", function(data){
+//   var keyz = firebase.auth().currentUser.uid;
+//   var dat = data.val();
   //array of all keys - users
   //console.log(Object.keys(dat));
   //selecting logged in user key
   //console.log(dat[keyz]);
-});
 
 
 
@@ -142,38 +248,9 @@ $(document).on("click","#newButton", function(){
      var comment = $("input").val().trim();
      searchNatureAPI(comment);
 
-    //  var key = firebase.auth().currentUser.uid;
-    //  var postData = {
-    //        paperTitle: "",
-    //        paperLink: "ssss",
-    //        paperTime: "",
-    //        paper4: "",
-    //        paper5: 0,
-    //        paper6: ""
-    //        };
-    //    var updates = {};
-    //    updates['/' +comment] = postData;
-    //    firebase.database().ref("/users/"+key).update(updates);
    });
 
 
-
-
-
-///*********************************************get button input********************
-    // $("#newButton").on("click", function(event) {
-          // prevent form from trying to submit/refresh the page
-      //  event.preventDefault();
-      //
-      //  var comment = $("input").val().trim();
-      // console.log(comment);
-      // searchNatureAPI(comment);
-
-            // var comment1 = $("<button>").text(comment);
-            //     comment1.addClass("setButtons", comment);
-            //     comment1.attr("data-subject",comment);
-            //$("#pageButtons").append(comment1);//***************************
-    //});
 
 //****************************************youtube*************************
  function start() {
