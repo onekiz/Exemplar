@@ -1,23 +1,5 @@
-
-
-
-
 var articleList = [];
 var searchTerm;
-
-function createRandomArticles () {
-  return {
-    title: faker.lorem.sentence(),
-    text: faker.lorem.paragraphs()
-  };
-}
-
-// create random articles
-for (var i = 0; i < 5; i++) {
-  articleList.push(createRandomArticles());
-}
-
-
 
 // create div variables
 var divArticleList = $('#article-list');
@@ -25,7 +7,7 @@ var divArticleCurrent = $('#article-current');
 
 // populate article list
 function populateArticleList(){
-
+  divArticleList.html("<h4 class='text-center'>Table of Contents</h4>");
   articleList.forEach((article, index) => {
     var html = "<div class='article-title' value='" + index + "'>";
     html += article.title;
@@ -45,11 +27,6 @@ function displayCurrentArticle (article) {
   divArticleCurrent.html(html);
   //console.log(article.link);
 }
-
-
-
-
-
 
 var config = {
  apiKey: "AIzaSyBMspl9CpK0mjnwum55Jg1r8BH-E_YEt-k",
@@ -290,7 +267,7 @@ database.ref().push({
         dateAdded: firebase.database.ServerValue.TIMESTAMP,
         });
 });
- 
+
  database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
       var sv = snapshot.val();
       // Log everything that's coming out of snapshot
