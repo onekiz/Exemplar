@@ -118,6 +118,7 @@ $(document).on("click","#newButton", function(){
      searchTerm = $("input").val().trim();
      var comment = $("input").val().trim();
      searchNatureAPI(comment);
+    //  populateChart(searchTerm);
 
     //  var key = firebase.auth().currentUser.uid;
     //  var postData = {
@@ -240,7 +241,8 @@ $("#newButton").on("click", function(event) {
 // prevent form from trying to submit/refresh the page
 event.preventDefault();
 //get the search term
-var searchTerm = $("input").val().trim();
+// var searchTerm = $("input").val().trim();
+searchTerm = $("input").val().trim();
 //console.log(searchTerm);
 //add search term to iframe format
 var iframe = '<iframe id="ytplayer" type="text/html" width="720" height="405" src="https://www.youtube.com/embed/?listType=search&list='+searchTerm+'"frameborder="0" allowfullscreen></iframe>'
@@ -254,7 +256,7 @@ var database = firebase.database();
 
 $("#article-list").on("click", function(){
 event.preventDefault();
-dateadded = $("#dateAdded-input").val().trim();
+dateAdded = $("#dateAdded-input").val().trim();
 
 
 
