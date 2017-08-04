@@ -67,27 +67,38 @@
     <div class="container-fluid">
       <!-- navbar -->
       <div class="row">
-        <div id='notes' class="col-md-3">
-          <h4 class='text-center'>Notes</h4>
+
+        <div id='article-list' class="col-md-3">
+          <h4 class='text-center'>Table of Contents</h4>
         </div>
+        <!-- <div id="dateAdded-input" class="col-md-6"> -->
+          <!--this can be removed just testing-->
+        <div class="col-md-6">
+          <h4 >Current Article</h4>
+          <p id="article-current"></p>
+          <!--below p adds iframe-->
+          <h4>Topic Video</h4>
+          <p id="ytNew"></p>
+          <h6>Press play to watch the video. Press ►| to watch the next video and ◄| for the previous video.</h6>
+          <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
+        <!--</div>
 
-        <div id='article-current' class="col-md-6">
-          <h4 class='text-center'>Current Article</h4>
-
-        <!--<form>
+        <form>
         <div class="form-group">
               <label for="comment-input">Search for Videos Related to Your Subject or Author</label>
                 <textarea class="form-control" id="subject-input" rows="1"></textarea>
             <button id="newButton" class="btn btn-default">Submit</button>
           </div>
-        </form>-->
+        </form>
 
         <div id="player"></div>
 
-        </div>
+        </div>-->
 
-        <div id='article-list' class="col-md-3">
-          <h4 class='text-center'>Table of Contents</h4>
+
+        <div id='notes' class="col-md-3">
+          <h4 class='text-center'>Notes</h4>
         </div>
       </div>
     </div><!-- container div -->
@@ -115,9 +126,11 @@
       crossorigin="anonymous">
     </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" charset="utf-8"></script>
-    <script src="./assets/js/faker.min.js" charset="utf-8"></script>
+    <!-- <script src="./assets/js/faker.min.js" charset="utf-8"></script> -->
+    <script src="./assets/js/chart.bundle.min.js" charset="utf-8"></script>
     <script src="./assets/js/annotator-full.min.js" charset="utf-8"></script>
     <script src="./assets/js/app.js" charset="utf-8"></script>
+    <script src="./assets/js/chart.js" charset="utf-8"></script>
 
 
   </body>

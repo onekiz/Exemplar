@@ -1,23 +1,5 @@
-
-
-
-
 var articleList = [];
 var searchTerm;
-
-function createRandomArticles () {
-  return {
-    title: faker.lorem.sentence(),
-    text: faker.lorem.paragraphs()
-  };
-}
-
-// create random articles
-for (var i = 0; i < 5; i++) {
-  articleList.push(createRandomArticles());
-}
-
-
 
 // create div variables
 var divArticleList = $('#article-list');
@@ -25,7 +7,7 @@ var divArticleCurrent = $('#article-current');
 
 // populate article list
 function populateArticleList(){
-
+  divArticleList.html("<h4 class='text-center'>Table of Contents</h4>");
   articleList.forEach((article, index) => {
     var html = "<div class='article-title' value='" + index + "'>";
     html += article.title;
@@ -45,11 +27,6 @@ function displayCurrentArticle (article) {
   divArticleCurrent.html(html);
   //console.log(article.link);
 }
-
-
-
-
-
 
 var config = {
  apiKey: "AIzaSyBMspl9CpK0mjnwum55Jg1r8BH-E_YEt-k",
@@ -247,75 +224,76 @@ $(document).on("click","#newButton", function(){
      searchTerm = $("input").val().trim();
      var comment = $("input").val().trim();
      searchNatureAPI(comment);
+    //  populateChart(searchTerm);
 
    });
 
 
 
 //****************************************youtube*************************
- function start() {
-        // Initializes the client with the API key and the Translate API.
-        gapi.client.init({
-          'apiKey': 'AIzaSyDE9ssybqcSunbGxGxv7UC9VquDqzcW8LY',
-          'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/translate/v2/rest'],
-        }).then(function() {
-          // Executes an API request, and returns a Promise.
-          // The method name `language.translations.list` comes from the API discovery.
-          return gapi.client.language.translations.list({
-            q: 'hello world',
-            source: 'en',
-            target: 'de',
-          });
-        }).then(function(response) {
-          console.log(response.result.data.translations[0].translatedText);
-        }, function(reason) {
-          console.log('Error: ' + reason.result.error.message);
-        });
-      };
+ // function start() {
+ //        // Initializes the client with the API key and the Translate API.
+ //        gapi.client.init({
+ //          'apiKey': 'AIzaSyDE9ssybqcSunbGxGxv7UC9VquDqzcW8LY',
+ //          'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/translate/v2/rest'],
+ //        }).then(function() {
+ //          // Executes an API request, and returns a Promise.
+ //          // The method name `language.translations.list` comes from the API discovery.
+ //          return gapi.client.language.translations.list({
+ //            q: 'hello world',
+ //            source: 'en',
+ //            target: 'de',
+ //          });
+ //        }).then(function(response) {
+ //          console.log(response.result.data.translations[0].translatedText);
+ //        }, function(reason) {
+ //          console.log('Error: ' + reason.result.error.message);
+ //        });
+ //      };
 
       // Loads the JavaScript client library and invokes `start` afterwards.
-      gapi.load('client', start);
+//       gapi.load('client', start);
 
-var tag = document.createElement('script');
+// var tag = document.createElement('script');
 
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+//       tag.src = "https://www.youtube.com/iframe_api";
+//       var firstScriptTag = document.getElementsByTagName('script')[0];
+//       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 
-      // 3. This function creates an <iframe> (and YouTube player)
-      //    after the API code downloads.
-      var player;
-      function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-          height: '390',
-          width: '640',
-          videoId: 'M7lc1UVf-VE',//****************
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-          }
-        });
-      }
+//       // 3. This function creates an <iframe> (and YouTube player)
+//       //    after the API code downloads.
+//       var player;
+//       function onYouTubeIframeAPIReady() {
+//         player = new YT.Player('player', {
+//           height: '390',
+//           width: '640',
+//           videoId: 'M7lc1UVf-VE',//****************
+//           events: {
+//             'onReady': onPlayerReady,
+//             'onStateChange': onPlayerStateChange
+//           }
+//         });
+//       }
 
       // 4. The API will call this function when the video player is ready.
-      function onPlayerReady(event) {
-        event.target.playVideo();
-      }
+      // function onPlayerReady(event) {
+      //   event.target.playVideo();
+      // }
 
       // 5. The API calls this function when the player's state changes.
       //    The function indicates that when playing a video (state=1),
       //    the player should play for six seconds and then stop.
-      var done = false;
-      function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-          setTimeout(stopVideo, 6000);
-          done = true;
-        }
-      }
-      function stopVideo() {
-        player.stopVideo();
-      }
+      // var done = false;
+      // function onPlayerStateChange(event) {
+      //   if (event.data == YT.PlayerState.PLAYING && !done) {
+      //     setTimeout(stopVideo, 6000);
+      //     done = true;
+      //   }
+      // }
+      // function stopVideo() {
+      //   player.stopVideo();
+      // }
 
 
 //search natureAPI
@@ -335,3 +313,42 @@ function searchNatureAPI(search){
 
 
 }
+
+$("#newButton").on("click", function(event) {
+// prevent form from trying to submit/refresh the page
+event.preventDefault();
+//get the search term
+// var searchTerm = $("input").val().trim();
+searchTerm = $("input").val().trim();
+//console.log(searchTerm);
+//add search term to iframe format
+var iframe = '<iframe id="ytplayer" type="text/html" width="720" height="405" src="https://www.youtube.com/embed/?listType=search&list='+searchTerm+'"frameborder="0" allowfullscreen></iframe>'
+//console.log(iframe1);
+//add iframe to html
+$("#ytNew").html(iframe);
+console.log(iframe);
+});
+
+var database = firebase.database();
+
+$("#article-list").on("click", function(){
+event.preventDefault();
+dateAdded = $("#dateAdded-input").val().trim();
+
+
+
+// divArticleList.on('click', '.article-title', function(){
+//   var currentIndex = $(this).attr('value');
+//   displayCurrentArticle(articleList[currentIndex]);
+// })
+
+database.ref().push({
+        dateAdded: firebase.database.ServerValue.TIMESTAMP,
+        });
+});
+
+ database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
+      var sv = snapshot.val();
+      // Log everything that's coming out of snapshot
+      console.log(sv.dateAdded);
+       });
