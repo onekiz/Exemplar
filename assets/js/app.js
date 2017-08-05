@@ -233,7 +233,7 @@ var database = firebase.database();
 
 $('#article-list').on('click', function () {
   event.preventDefault();
-  dateAdded = $('#dateAdded-input').val().trim();
+  var dateAdded = $('#dateAdded-input').val().trim();
 
   database.ref().push({
     dateAdded: firebase.database.ServerValue.TIMESTAMP
@@ -242,6 +242,6 @@ $('#article-list').on('click', function () {
 
 database.ref().orderByChild('dateAdded').limitToLast(1).on('child_added', function (snapshot) {
   var sv = snapshot.val();
-      // Log everything that's coming out of snapshot
-  console.log(sv.dateAdded);
+  // Log everything that's coming out of snapshot
+  // console.log(sv.dateAdded);
 });

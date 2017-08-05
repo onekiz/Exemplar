@@ -1,6 +1,6 @@
-var ctx = document.getElementById("myChart").getContext('2d');
+var ctx = document.getElementById('myChart').getContext('2d');
 
-function populateChart(searchTerm){
+function populateChart (searchTerm) {
   var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -31,28 +31,25 @@ function populateChart(searchTerm){
       scales: {
         yAxes: [{
           ticks: {
-            beginAtZero:true,
+            beginAtZero: true,
             fontSize: 20,
-            fontColor: '#666',
-            
+            fontColor: '#666'
+
           }
         }]
       }
     }
   });
-
-
 }
 
-ref.on("value", function(data){
+firebase.database().ref('/users').on('value', function (data) {
   var keyz = firebase.auth().currentUser.uid;
   var dat = data.val();
-  //array of all keys - users
-  //console.log(Object.keys(dat));
-  //selecting logged in user key
-  var searchTerm= {};
-  console.log("got here");
-  for(key in dat[keyz].papers) {
+  console.log(dat[keyz]);
+  // array of all keys - users
+  // selecting logged in user key
+  var searchTerm = {};
+  for (key in dat[keyz].papers) {
     searchTerm[key] = 5;
   }
 
