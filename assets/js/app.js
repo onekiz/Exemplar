@@ -1,11 +1,27 @@
+// variable declaration
 var articleList = [];
 var searchTerm;
+var ref;
 
 // create div variables
 var divArticleList = $('#article-list');
 var divArticleCurrent = $('#article-current');
 
-// populate article list
+// config and initialize firebase
+var config = {
+  apiKey: 'AIzaSyBMspl9CpK0mjnwum55Jg1r8BH-E_YEt-k',
+  authDomain: 'exemplar-eadfd.firebaseapp.com',
+  databaseURL: 'https://exemplar-eadfd.firebaseio.com',
+  projectId: 'exemplar-eadfd',
+  storageBucket: 'exemplar-eadfd.appspot.com',
+  messagingSenderId: '200572986712'
+};
+firebase.initializeApp(config);
+var database = firebase.database();
+
+/**
+  * @desc populate articles from search input into table of contents
+*/
 function populateArticleList () {
   divArticleList.html("<h4 class='text-center'>Table of Contents</h4>");
   articleList.forEach((article, index) => {
@@ -17,28 +33,25 @@ function populateArticleList () {
   });
 }
 
-// display current article
+/**
+  * @desc display the article that was clicked in the table of contents to center of the page
+  * @param object article - the article that gets passed from divArticleList click listener
+*/
 function displayCurrentArticle (article) {
   var articleID = article.link.split('/')[4];
 
   var html = '<h4>' + article.title + '</h4>';
   html = html + '<iframe src="' + article.link + '" ></iframe>';
-  // html = html + '<iframe src="https://www.nature.com/articles/'+articleID+'" ></iframe>';
+  html = html + article['sru:recordData']['pam:message']['pam:article']['xhtml:head']['dc:description'];
+  html = html + '<a href="'+article.link+'" target="_blank">Click here for link</a>'
+
+  /* add document in iframe
+   * delete if we skip iframe
+   html = html + '<iframe src="' + article.link + '" ></iframe>';
+  */
+
   divArticleCurrent.html(html);
-  // console.log(article.link);
 }
-
-var config = {
-  apiKey: 'AIzaSyBMspl9CpK0mjnwum55Jg1r8BH-E_YEt-k',
-  authDomain: 'exemplar-eadfd.firebaseapp.com',
-  databaseURL: 'https://exemplar-eadfd.firebaseio.com',
-  projectId: 'exemplar-eadfd',
-  storageBucket: 'exemplar-eadfd.appspot.com',
-  messagingSenderId: '200572986712'
-};
-firebase.initializeApp(config);
-
-var ref;
 
 // TODO: I think this click event listener needs to be on a link that gets populated in the current article detail.
 // add click listener to each article title
@@ -46,7 +59,7 @@ divArticleList.on('click', '.article-title', function () {
   var currentIndex = $(this).attr('value');
   displayCurrentArticle(articleList[currentIndex]);
 
-  var key = firebase.auth().currentUser.uid;
+  var userID = firebase.auth().currentUser.uid;
 
   var count = 0;
   var day = new Date();
@@ -64,13 +77,14 @@ divArticleList.on('click', '.article-title', function () {
     paperTime: 'empty'
   };
 
+  // TODO fix database reference to add papers/searchTerm instead of papers/dayTime
         // //////////updating the firebase with new data that clicked paper
-  ref = firebase.database().ref('/users/' + key + '/papers/' + day.getTime() + '/' + currentIndex);
-  firebase.database().ref('/users/' + key + '/papers/' + day.getTime() + '/' + currentIndex).update(postData);
+  ref = firebase.database().ref('/users/' + userID + '/papers/' + day.getTime() + '/' + currentIndex);
+  firebase.database().ref('/users/' + userID + '/papers/' + day.getTime() + '/' + currentIndex).update(postData);
 
         // ///////////controlling timer and appearance of timer and table///////
   stopwatch.start();
-  $('.row').hide();
+  // $('.row').hide();
   $('#wrapper').attr('class', 'show');
   window.open(articleList[currentIndex].link);
 });
@@ -176,17 +190,6 @@ firebase.auth().onAuthStateChanged(function (user) {
   }
 });
 
-// main reference firebase
-// var ref = firebase.database().ref("/users");
-//
-// // ref.on("value", function(data){
-//   var keyz = firebase.auth().currentUser.uid;
-//   var dat = data.val();
-  // array of all keys - users
-  // console.log(Object.keys(dat));
-  // selecting logged in user key
-  // console.log(dat[keyz]);
-
 $(document).on('click', '.btn.btn-primary.dropdown-toggle.logout', function () {
   event.preventDefault();
 
@@ -211,7 +214,10 @@ $(document).on('click', '#newButton', function () {
   $('#ytNew').html(iframe);
 });
 
-// search natureAPI
+/**
+  * @desc search natureAPI and populate list of titles in table of contents
+  * @param string seach - string provided by user in input field
+*/
 function searchNatureAPI (search) {
   var apiURL = 'https://www.nature.com/opensearch/request?httpAccept=application/json&query=' + search;
 
@@ -219,13 +225,13 @@ function searchNatureAPI (search) {
   fetch(apiURL).then(response => {
     return response.json();
   }).then(returnData => {
-    console.log(returnData.feed.entry);
+    // console.log(returnData.feed.entry);
     articleList = returnData.feed.entry;
     populateArticleList();
   });
 }
 
-var database = firebase.database();
+
 
 // **********************************************
 //    Click event for article-list
@@ -233,7 +239,7 @@ var database = firebase.database();
 
 $('#article-list').on('click', function () {
   event.preventDefault();
-  var dateAdded = $('#dateAdded-input').val().trim();
+  // var dateAdded = $('#dateAdded-input').val().trim();
 
   database.ref().push({
     dateAdded: firebase.database.ServerValue.TIMESTAMP
@@ -245,3 +251,14 @@ database.ref().orderByChild('dateAdded').limitToLast(1).on('child_added', functi
   // Log everything that's coming out of snapshot
   // console.log(sv.dateAdded);
 });
+
+// main reference firebase
+// var ref = firebase.database().ref("/users");
+//
+// // ref.on("value", function(data){
+//   var keyz = firebase.auth().currentUser.uid;
+//   var dat = data.val();
+  // array of all keys - users
+  // console.log(Object.keys(dat));
+  // selecting logged in user key
+  // console.log(dat[keyz]);
