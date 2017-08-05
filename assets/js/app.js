@@ -43,7 +43,7 @@ function displayCurrentArticle (article) {
   var html = '<h4>' + article.title + '</h4>';
   html = html + '<iframe src="' + article.link + '" ></iframe>';
   html = html + article['sru:recordData']['pam:message']['pam:article']['xhtml:head']['dc:description'];
-  html = html + '<a href="'+article.link+'" target="_blank">Click here for link</a>'
+  html = html + '<a href="' + article.link + '" target="_blank">Click here for link</a>';
 
   /* add document in iframe
    * delete if we skip iframe
@@ -214,43 +214,43 @@ $(document).on('click', '#newButton', function () {
   // // add iframe to html
   // $('#ytNew').html(iframe);
 
-var request = gapi.client.youtube.search.list({
-            part: "snippet",
-            type: "video",
-            q: encodeURIComponent($('input').val().trim()).replace(/%20/g, "+"),
-            maxResults: 1,
-            order: "relevance",
-            topicId: "/m/01k8wb", //knowledge topics only
-            safeSearch: "strict", //no inappropriate material
-            publishedAfter: "2015-01-01T00:00:00Z"
+  var request = gapi.client.youtube.search.list({
+    part: 'snippet',
+    type: 'video',
+    q: encodeURIComponent($('input').val().trim()).replace(/%20/g, '+'),
+    maxResults: 1,
+    order: 'relevance',
+    topicId: '/m/01k8wb', // knowledge topics only
+    safeSearch: 'strict', // no inappropriate material
+    publishedAfter: '2015-01-01T00:00:00Z'
 
-});
+  });
 
  // execute the request
-      function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
-       request.execute(function(response) {
-          var results = response.result;
-          $("#ytNew").html("");
-          $.each(results.items, function(index, item) {
-            $.get("tpl.html", function(data) {
-                $("#ytNew").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
-            });
-          });
-          // resetVideoHeight();
-       });
+  function tplawesome (e, t) { res = e; for (var n = 0; n < t.length; n++) { res = res.replace(/\{\{(.*?)\}\}/g, function (e, r) { return t[n][r]; }); } return res; }
+  request.execute(function (response) {
+    var results = response.result;
+    $('#ytNew').html('');
+    $.each(results.items, function (index, item) {
+      $.get('tpl.html', function (data) {
+        $('#ytNew').append(tplawesome(data, [{'title': item.snippet.title, 'videoid': item.id.videoId}]));
+      });
     });
-    
+          // resetVideoHeight();
+  });
+});
+
 //     $(window).on("resize", resetVideoHeight);
 
 // function resetVideoHeight() {
 //     $("#ytNew").css("height", "405px","width","720px");
 // }
 
-function init() {
-    gapi.client.setApiKey("AIzaSyDZh8uYaoVKAcc9hYsRzC1o9HuQH3SwTYk");
-    gapi.client.load("youtube", "v3", function() {
+function init () {
+  gapi.client.setApiKey('AIzaSyDZh8uYaoVKAcc9hYsRzC1o9HuQH3SwTYk');
+  gapi.client.load('youtube', 'v3', function () {
         // yt api is ready
-    });
+  });
 }
 
 /**
@@ -270,12 +270,12 @@ function searchNatureAPI (search) {
   });
 }
 
-
-
 // **********************************************
 //    Click event for article-list
 // **********************************************
 
+/**
+  * TODO: delete code as this is adding timestamp
 $('#article-list').on('click', function () {
   event.preventDefault();
   // var dateAdded = $('#dateAdded-input').val().trim();
@@ -290,6 +290,8 @@ database.ref().orderByChild('dateAdded').limitToLast(1).on('child_added', functi
   // Log everything that's coming out of snapshot
   // console.log(sv.dateAdded);
 });
+
+*/
 
 // main reference firebase
 // var ref = firebase.database().ref("/users");
