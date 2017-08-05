@@ -153,19 +153,19 @@ $(document).on('click', '#stop', function () {
 
   //update time for subject
   var userID = firebase.auth().currentUser.uid;
-  // firebase.database().ref('/users/'+userID +'/papers/' + searchTerm).child('value', function(data) {
-  //   // if object has a value
-  //   console.log('got here', data.val());
-  //   if(data.val().paperTime){
-  //     var time = data.val().paperTime;
-  //     console.log(time);
-  //   }
-  // })
+  firebase.database().ref('/users/'+userID +'/papers/' + searchTerm).once('value', function(data) {
+    // if object has a value
+    console.log('got here', data.val());
+    if(data.val().timeRead){
+      timeRead += data.val().timeRead;
+    }
+  })
 
   postData = {
     timeRead: timeRead
   };
   firebase.database().ref('/users/' + userID + '/papers/' + searchTerm + '/' + currentIndex).update(postData);
+  firebase.database().ref('/users/' + userID + '/papers/' + searchTerm).update(postData);
 
 
 

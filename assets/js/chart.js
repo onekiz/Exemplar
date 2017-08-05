@@ -1,13 +1,14 @@
 var ctx = document.getElementById('myChart').getContext('2d');
 
-function populateChart (searchTerm) {
+function populateChart (label, value) {
+  console.log(label,value);
   var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: Object.keys(searchTerm),
+      labels: label,
       datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
+        label: 'secs on topic',
+        data: value,
         backgroundColor: [
           'rgba(255, 99, 132, 0.0)',
           'rgba(54, 162, 235, 0.0)',
@@ -49,11 +50,19 @@ firebase.database().ref('/users').on('value', function (data) {
   // array of all keys - users
   // selecting logged in user key
   var searchTerm = {};
-  for (key in dat[keyz].papers) {
-    searchTerm[key] = 5;
-  }
 
-  populateChart(searchTerm);
+  var label = [];
+  var value = [];
+
+  //loop through all keys and assign the value to time read
+  for (key in dat[keyz].papers) {
+    // searchTerm[key] = dat[keyz].papers[key].timeRead;
+    label.push(key);
+    value.push(dat[keyz].papers[key].timeRead);
+  }
+  console.log(searchTerm);
+
+  populateChart(label, value);
   // console.log('chart',dat[keyz].papers);
   // populateChart()
 });
