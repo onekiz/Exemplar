@@ -139,15 +139,9 @@ function account() {
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // /////if user signed in or singed up updating user account properties///////
-    console.log('first login?', firstLogIn);
     if (true) {
       console.log('got here', user);
-      console.log($('#name').val())
-      user.updateProfile(
-        {
-          displayName: $('#name').val(),
-          // photoURL: file.name
-        }).then(function() {
+      user.updateProfile({displayName: $('#name').val(), photoURL: file.name}).then(function() {
         console.log('Update is successfull');
         // ///directing to index.html page//////////
       }, function(error) {

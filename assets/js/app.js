@@ -4,6 +4,7 @@ var searchTerm;
 var ref;
 var timeClicked;  // to track when article was clicked
 var timeStopped;  // to track when article was stopped
+var currentIndex;
 
 // create div variables
 var divArticleList = $('#article-list');
@@ -40,7 +41,7 @@ function populateArticleList () {
   * @param object article - the article that gets passed from divArticleList click listener
   * @param number currentIndex - the index article that got clicked - used to pass value to button clicked
 */
-function displayCurrentArticle (article, currentIndex) {
+function displayCurrentArticle (article) {
   var articleID = article.link.split('/')[4];
 
   var html = '<h4>' + article.title + '</h4>';
@@ -56,11 +57,10 @@ function displayCurrentArticle (article, currentIndex) {
   divArticleCurrent.html(html);
 }
 
-// TODO: I think this click event listener needs to be on a link that gets populated in the current article detail.
 // add click listener to each article title
 divArticleList.on('click', '.article-title', function () {
-  var currentIndex = $(this).attr('value');
-  displayCurrentArticle(articleList[currentIndex], currentIndex);
+  currentIndex = $(this).attr('value');
+  displayCurrentArticle(articleList[currentIndex]);
 });
 
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -142,15 +142,35 @@ var stopwatch = {
 };
 
 // ///////stopping timer and pushing time to firebase/////////
+// TODO add update time subject
 $(document).on('click', '#stop', function () {
   // ref.once('value', function (user) {
   //   ref.child('paperTime').set(converted);
   // });
   timeStopped = new moment().unix();
-  console.log('time stopped: ', timeStopped);
-  console.log('time difference: ', (timeStopped-timeClicked));
+  var timeRead = timeStopped-timeClicked;
+  console.log('time difference: ', timeRead);
+
+  //update time for subject
+  var userID = firebase.auth().currentUser.uid;
+  // firebase.database().ref('/users/'+userID +'/papers/' + searchTerm).child('value', function(data) {
+  //   // if object has a value
+  //   console.log('got here', data.val());
+  //   if(data.val().paperTime){
+  //     var time = data.val().paperTime;
+  //     console.log(time);
+  //   }
+  // })
+
+  postData = {
+    timeRead: timeRead
+  };
+  firebase.database().ref('/users/' + userID + '/papers/' + searchTerm + '/' + currentIndex).update(postData);
+
+
+
   stopwatch.stop();
-  $('#wrapper').hide();
+  $('#wrapper').toggleClass('show');
   $('.row').show();
   stopwatch.time = 0;
 });
@@ -158,7 +178,7 @@ $(document).on('click', '#stop', function () {
 $(document).on('click','#outside-article', function(){
   console.log('got here');
   var userID = firebase.auth().currentUser.uid;
-  var currentIndex = $(this).attr('value');
+  currentIndex = $(this).attr('value');
   console.log('current index: ', currentIndex);
 
   var count = 0;
@@ -168,7 +188,7 @@ $(document).on('click','#outside-article', function(){
   console.log('time clicked: ', timeClicked);
   stopwatch.start();
   $('.row').hide();
-  $('#wrapper').attr('class', 'show');
+  $('#wrapper').toggleClass('show');
   window.open(articleList[currentIndex].link);
 
   var postData = {
@@ -196,6 +216,7 @@ $(document).on('click','#outside-article', function(){
 
 // //listening any change on state of firebase
 firebase.auth().onAuthStateChanged(function (user) {
+  console.log(user);
   if (user) {
     $('#displayName').html(' Welcome ' + user.displayName + ' ' + user.email);
   } else {
