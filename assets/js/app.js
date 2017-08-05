@@ -9,14 +9,14 @@ var timeStopped;  // to track when article was stopped
 var divArticleList = $('#article-list');
 var divArticleCurrent = $('#article-current');
 
-// config and initialize firebase
+// Initialize Firebase
 var config = {
-  apiKey: 'AIzaSyBMspl9CpK0mjnwum55Jg1r8BH-E_YEt-k',
-  authDomain: 'exemplar-eadfd.firebaseapp.com',
-  databaseURL: 'https://exemplar-eadfd.firebaseio.com',
-  projectId: 'exemplar-eadfd',
-  storageBucket: 'exemplar-eadfd.appspot.com',
-  messagingSenderId: '200572986712'
+  apiKey: "AIzaSyBQOGFPzTZ3o5WLnsuyqlk4TEyxFSaVAO0",
+  authDomain: "exemplar-ae432.firebaseapp.com",
+  databaseURL: "https://exemplar-ae432.firebaseio.com",
+  projectId: "exemplar-ae432",
+  storageBucket: "exemplar-ae432.appspot.com",
+  messagingSenderId: "893766502988"
 };
 firebase.initializeApp(config);
 var database = firebase.database();
@@ -148,7 +148,7 @@ $(document).on('click', '#stop', function () {
   // });
   timeStopped = new moment().unix();
   console.log('time stopped: ', timeStopped);
-  console.log('time difference: ', (timeClicked-timeStopped));
+  console.log('time difference: ', (timeStopped-timeClicked));
   stopwatch.stop();
   $('#wrapper').hide();
   $('.row').show();
@@ -157,7 +157,7 @@ $(document).on('click', '#stop', function () {
 
 $(document).on('click','#outside-article', function(){
   console.log('got here');
-  // var userID = firebase.auth().currentUser.uid;
+  var userID = firebase.auth().currentUser.uid;
   var currentIndex = $(this).attr('value');
   console.log('current index: ', currentIndex);
 
