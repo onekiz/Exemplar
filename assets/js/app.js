@@ -208,11 +208,50 @@ $(document).on('click', '#newButton', function () {
   var comment = $('input').val().trim();
   searchNatureAPI(comment);
   // add search term to iframe format
-  var iframe = '<iframe id="ytplayer" type="text/html" width="720" height="405" src="https://www.youtube.com/embed/?listType=search&list=' + searchTerm + '"frameborder="0" allowfullscreen></iframe>';
 
-  // add iframe to html
-  $('#ytNew').html(iframe);
+  // var iframe = '<iframe id="ytplayer" type="text/html" width="720" height="405" src="https://www.youtube.com/embed/?listType=search&list=' + searchTerm + '"frameborder="0" allowfullscreen></iframe>';
+
+  // // add iframe to html
+  // $('#ytNew').html(iframe);
+
+var request = gapi.client.youtube.search.list({
+            part: "snippet",
+            type: "video",
+            q: encodeURIComponent($('input').val().trim()).replace(/%20/g, "+"),
+            maxResults: 1,
+            order: "relevance",
+            topicId: "/m/01k8wb", //knowledge topics only
+            safeSearch: "strict", //no inappropriate material
+            publishedAfter: "2015-01-01T00:00:00Z"
+
 });
+
+ // execute the request
+      function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
+       request.execute(function(response) {
+          var results = response.result;
+          $("#ytNew").html("");
+          $.each(results.items, function(index, item) {
+            $.get("tpl.html", function(data) {
+                $("#ytNew").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
+            });
+          });
+          // resetVideoHeight();
+       });
+    });
+    
+//     $(window).on("resize", resetVideoHeight);
+
+// function resetVideoHeight() {
+//     $("#ytNew").css("height", "405px","width","720px");
+// }
+
+function init() {
+    gapi.client.setApiKey("AIzaSyDZh8uYaoVKAcc9hYsRzC1o9HuQH3SwTYk");
+    gapi.client.load("youtube", "v3", function() {
+        // yt api is ready
+    });
+}
 
 /**
   * @desc search natureAPI and populate list of titles in table of contents
