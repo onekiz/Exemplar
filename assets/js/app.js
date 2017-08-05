@@ -2,6 +2,8 @@
 var articleList = [];
 var searchTerm;
 var ref;
+var timeClicked;  // to track when article was clicked
+var timeStopped;  // to track when article was stopped
 
 // create div variables
 var divArticleList = $('#article-list');
@@ -36,14 +38,15 @@ function populateArticleList () {
 /**
   * @desc display the article that was clicked in the table of contents to center of the page
   * @param object article - the article that gets passed from divArticleList click listener
+  * @param number currentIndex - the index article that got clicked - used to pass value to button clicked
 */
-function displayCurrentArticle (article) {
+function displayCurrentArticle (article, currentIndex) {
   var articleID = article.link.split('/')[4];
 
   var html = '<h4>' + article.title + '</h4>';
-  html = html + '<iframe src="' + article.link + '" ></iframe>';
+  // html = html + '<iframe src="' + article.link + '" ></iframe>';
   html = html + article['sru:recordData']['pam:message']['pam:article']['xhtml:head']['dc:description'];
-  html = html + '<a href="' + article.link + '" target="_blank">Click here for link</a>';
+  html = html + '<button id="outside-article" class="btn btn-primary" value="'+currentIndex+'"href="' + article.link + '" target="_blank">Click here for link</button>';
 
   /* add document in iframe
    * delete if we skip iframe
@@ -57,36 +60,7 @@ function displayCurrentArticle (article) {
 // add click listener to each article title
 divArticleList.on('click', '.article-title', function () {
   var currentIndex = $(this).attr('value');
-  displayCurrentArticle(articleList[currentIndex]);
-
-  var userID = firebase.auth().currentUser.uid;
-
-  var count = 0;
-  var day = new Date();
-  var postData = {
-
-    paperSearchTerm: searchTerm,
-    paperLink: articleList[currentIndex].link,
-    paperID: articleList[currentIndex].id,
-    paperPublisher: articleList[currentIndex]['sru:recordData']['pam:message']['pam:article']['xhtml:head']['dc:publisher'],
-    paperGenre: articleList[currentIndex]['sru:recordData']['pam:message']['pam:article']['xhtml:head']['prism:genre'],
-    paperISSN: articleList[currentIndex]['sru:recordData']['pam:message']['pam:article']['xhtml:head']['prism:issn'],
-    paperDate: articleList[currentIndex]['sru:recordData']['pam:message']['pam:article']['xhtml:head']['prism:publicationDate'],
-    paperPubName: articleList[currentIndex]['sru:recordData']['pam:message']['pam:article']['xhtml:head']['prism:publicationName'],
-    paperDate: day,
-    paperTime: 'empty'
-  };
-
-  // TODO fix database reference to add papers/searchTerm instead of papers/dayTime
-        // //////////updating the firebase with new data that clicked paper
-  ref = firebase.database().ref('/users/' + userID + '/papers/' + day.getTime() + '/' + currentIndex);
-  firebase.database().ref('/users/' + userID + '/papers/' + day.getTime() + '/' + currentIndex).update(postData);
-
-        // ///////////controlling timer and appearance of timer and table///////
-  stopwatch.start();
-  // $('.row').hide();
-  $('#wrapper').attr('class', 'show');
-  window.open(articleList[currentIndex].link);
+  displayCurrentArticle(articleList[currentIndex], currentIndex);
 });
 
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -169,15 +143,54 @@ var stopwatch = {
 
 // ///////stopping timer and pushing time to firebase/////////
 $(document).on('click', '#stop', function () {
-  ref.once('value', function (user) {
-    ref.child('paperTime').set(converted);
-  });
-
+  // ref.once('value', function (user) {
+  //   ref.child('paperTime').set(converted);
+  // });
+  timeStopped = new moment().unix();
+  console.log('time stopped: ', timeStopped);
+  console.log('time difference: ', (timeClicked-timeStopped));
   stopwatch.stop();
   $('#wrapper').hide();
   $('.row').show();
   stopwatch.time = 0;
 });
+
+$(document).on('click','#outside-article', function(){
+  console.log('got here');
+  // var userID = firebase.auth().currentUser.uid;
+  var currentIndex = $(this).attr('value');
+  console.log('current index: ', currentIndex);
+
+  var count = 0;
+  var day = new Date();
+  // ///////////controlling timer and appearance of timer and table///////
+  timeClicked = new moment().unix();
+  console.log('time clicked: ', timeClicked);
+  stopwatch.start();
+  $('.row').hide();
+  $('#wrapper').attr('class', 'show');
+  window.open(articleList[currentIndex].link);
+
+  var postData = {
+
+    paperSearchTerm: searchTerm,
+    paperLink: articleList[currentIndex].link,
+    paperID: articleList[currentIndex].id,
+    paperPublisher: articleList[currentIndex]['sru:recordData']['pam:message']['pam:article']['xhtml:head']['dc:publisher'],
+    paperGenre: articleList[currentIndex]['sru:recordData']['pam:message']['pam:article']['xhtml:head']['prism:genre'],
+    paperISSN: articleList[currentIndex]['sru:recordData']['pam:message']['pam:article']['xhtml:head']['prism:issn'],
+    paperDate: articleList[currentIndex]['sru:recordData']['pam:message']['pam:article']['xhtml:head']['prism:publicationDate'],
+    paperPubName: articleList[currentIndex]['sru:recordData']['pam:message']['pam:article']['xhtml:head']['prism:publicationName'],
+    paperDate: day,
+    paperTime: 'empty'
+  };
+
+  // TODO fix database reference to add papers/searchTerm instead of papers/dayTime
+        // //////////updating the firebase with new data that clicked paper
+  ref = firebase.database().ref('/users/' + userID + '/papers/' + searchTerm + '/' + currentIndex);
+  firebase.database().ref('/users/' + userID + '/papers/' + searchTerm + '/' + currentIndex).update(postData);
+
+})
 
 // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -214,6 +227,9 @@ $(document).on('click', '#newButton', function () {
   // // add iframe to html
   // $('#ytNew').html(iframe);
 
+
+  /* COMMENTED OUT YOUTBE API
+
   var request = gapi.client.youtube.search.list({
     part: 'snippet',
     type: 'video',
@@ -238,6 +254,9 @@ $(document).on('click', '#newButton', function () {
     });
           // resetVideoHeight();
   });
+
+  */
+
 });
 
 //     $(window).on("resize", resetVideoHeight);
@@ -269,37 +288,3 @@ function searchNatureAPI (search) {
     populateArticleList();
   });
 }
-
-// **********************************************
-//    Click event for article-list
-// **********************************************
-
-/**
-  * TODO: delete code as this is adding timestamp
-$('#article-list').on('click', function () {
-  event.preventDefault();
-  // var dateAdded = $('#dateAdded-input').val().trim();
-
-  database.ref().push({
-    dateAdded: firebase.database.ServerValue.TIMESTAMP
-  });
-});
-
-database.ref().orderByChild('dateAdded').limitToLast(1).on('child_added', function (snapshot) {
-  var sv = snapshot.val();
-  // Log everything that's coming out of snapshot
-  // console.log(sv.dateAdded);
-});
-
-*/
-
-// main reference firebase
-// var ref = firebase.database().ref("/users");
-//
-// // ref.on("value", function(data){
-//   var keyz = firebase.auth().currentUser.uid;
-//   var dat = data.val();
-  // array of all keys - users
-  // console.log(Object.keys(dat));
-  // selecting logged in user key
-  // console.log(dat[keyz]);
