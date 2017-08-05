@@ -48,6 +48,8 @@ var config = {
 };
 firebase.initializeApp(config);
 
+
+
 //////Github account //////////////
 	var provider = new firebase.auth.GithubAuthProvider();
 
@@ -111,10 +113,30 @@ firebase.initializeApp(config);
 								$("#login").remove();
 								$("#github").remove();
 								$("#signup").remove();
-								var buttonSignUp = $("<button class = 'btn btn-success' id = 'submitAccount'>");
+								var buttonSignUp = $("<button class = 'btn btn-primary' id = 'submitAccount'>");
 								buttonSignUp.text("Submit");
 								buttonSignUp.insertAfter($("#password"));
+								var cancel = $("<button class = 'btn btn-success' id = 'cancel'>");
+								var tag = $("<a href = 'logIn.html'>");
+								tag.text("Cancel");
+								cancel.insertAfter($("#submitAccount"));
+								cancel.append(tag);
     			}
+///////////////////////////////////////////storing Porfile Image///////////////////////////////////////////////////////////////////
+var file;
+var firstLogIn = false;
+					$(document).on("change","#imgFile",function(e){
+								console.log(e);
+							  file = e.target.files[0];
+								firstLogIn = true;
+								console.log(file);
+								// var storageRef = firebase.storage().ref("images/"+file.name);
+								// storageRef.put(file);
+					});
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
 
 /////////Submitting form to sign up clicking button.... all user info is stored in firebase with specific UID/////////
@@ -129,6 +151,7 @@ firebase.initializeApp(config);
 							pass: $("#password").val()
 					 };
 
+
 					 //////////Calling firebase method to create user account with email an password///////////
 						auth.createUserWithEmailAndPassword(users.email, users.pass).catch(function(error) {
 									  // Handle Errors
@@ -138,38 +161,45 @@ firebase.initializeApp(config);
 										console.log(errorMessage);
 									}).then(function(response) {
 
-								/////saving user info on firebase////////////////
-			          var database = firebase.database();
-								firebase.database().ref("users/"+response.uid).set({
-			         	email: users.email,
-								pass: users.pass,
-			         	displayName: $("#name").val(),
-								lastName: $("#lastName").val(),
-								paperTitle: "",
-								paperTime: "",
-								imgUrl: $("#imgFile").val()
-			      });
+												/////saving user info on firebase////////////////
+												var storageRef = firebase.storage().ref(response.uid+"/"+file.name);
+												storageRef.put(file);
 
-			});
+												var database = firebase.database();
+												firebase.database().ref("users/"+response.uid).set({
+							         	email: users.email,
+												pass: users.pass,
+							         	displayName: $("#name").val(),
+												lastName: $("#lastName").val(),
+												paperTitle: "",
+												paperTime: "",
+												imgUrl: file.name
+							      		});
 
-}
+								});
+
+		}
 ////////event listenner whenever there is a change of Auth State signing in or signing up////////
 			firebase.auth().onAuthStateChanged(function(user){
 
 				if(user){
 				///////if user signed in or singed up updating user account properties///////
-					user.updateProfile({
-        				displayName: $("#name").val(),
-								photoURL: $("#imgFile").val()
-				    		}).then(function() {
-				        console.log("Update is successfull");
-								/////directing to index.html page//////////
-								window.location = "index.html";
-				    		}, function(error) {
-				        console.log("not able to update user info");
-				    		});
+						if(firstLogIn){
+								user.updateProfile({
+			        				displayName: $("#name").val(),
+											photoURL: file.name
+							    		}).then(function() {
+							        console.log("Update is successfull");
+											/////directing to index.html page//////////
+
+							    		}, function(error) {
+							        console.log("not able to update user info");
+							    });
+							}
 						////updated user info//////////
 						console.log(user);
+						firstLogIn = false;
+						window.location = "index.html";
 				}
 				else {
 					console.log("not logged in");

@@ -44,7 +44,7 @@
 	<div class = "col-md-4">
 		<br><br><br><br><br>
 			<h2> Account Name </h2><br>
-			<img src="assets/css/brazil.jpg" alt=""  style="width:180px; height:180px;"> <br><br><br><br>
+			<img id = "userImg" src="" alt=""  style="width:180px; height:180px;"> <br><br><br><br>
 			<h3 style = "border-bottom: 1px solid gray;"> work </h3><br><br><br><br>
 			<h3 style = "border-bottom: 1px solid gray;"> Skils </h3>
 	</div>
@@ -104,6 +104,11 @@ firebase.initializeApp(config);
 
 				if(user){
 				///////if user signed in or singed up updating user account properties///////
+				console.log(user);
+				var storageRef = firebase.storage().ref(user.uid+"/");
+				storageRef.child(user.photoURL).getDownloadURL().then(function(url) {
+					$("#userImg").attr("src", url);
+				});
 						console.log(user);
 				}
 				else {
