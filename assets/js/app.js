@@ -251,32 +251,56 @@ $(document).on('click', '#newButton', function () {
 
    //COMMENTED OUT YOUTBE API
 
-  var request = gapi.client.youtube.search.list({
-    part: 'snippet',
-    type: 'video',
-    q: encodeURIComponent($('input').val().trim()).replace(/%20/g, '+'),
-    maxResults: 1,
-    order: 'relevance',
-    topicId: '/m/01k8wb', // knowledge topics only
-    safeSearch: 'strict', // no inappropriate material
-    publishedAfter: '2015-01-01T00:00:00Z'
+  // var request = gapi.client.youtube.search.list({
+  //   part: 'snippet',
+  //   type: 'video',
+  //   q: encodeURIComponent($('input').val().trim()).replace(/%20/g, '+'),
+  //   maxResults: 1,
+  //   order: 'relevance',
+  //   topicId: '/m/01k8wb', // knowledge topics only
+  //   safeSearch: 'strict', // no inappropriate material
+  //   publishedAfter: '2015-01-01T00:00:00Z'
 
-  });
+  // });
+
+   var request = gapi.client.youtube.search.list({
+            part: "snippet",
+            type: "video",
+            q: encodeURIComponent($('input').val().trim()).replace(/%20/g, "+"),
+            maxResults: 1,
+            order: "relevance",
+            topicId: "/m/01k8wb",
+            safeSearch: "strict",
+            publishedAfter: "2015-01-01T00:00:00Z"
+  // add iframe to html
+  // $('#ytNew').html(iframe);
+})
 
  // execute the request
-  function tplawesome (e, t) { res = e; for (var n = 0; n < t.length; n++) { res = res.replace(/\{\{(.*?)\}\}/g, function (e, r) { return t[n][r]; }); } return res; }
-  request.execute(function (response) {
-    var results = response.result;
-    $('#ytNew').html('');
-    $.each(results.items, function (index, item) {
-      $.get('tpl.html', function (data) {
-        $('#ytNew').append(tplawesome(data, [{'title': item.snippet.title, 'videoid': item.id.videoId}]));
-      });
-    });
-          // resetVideoHeight();
-  });
+  // function tplawesome (e, t) { res = e; for (var n = 0; n < t.length; n++) { res = res.replace(/\{\{(.*?)\}\}/g, function (e, r) { return t[n][r]; }); } return res; }
+  // request.execute(function (response) {
+  //   var results = response.result;
+  //   $('#ytNew').html('');
+  //   $.each(results.items, function (index, item) {
+  //     $.get('tpl.html', function (data) {
+  //       $('#ytNew').append(tplawesome(data, [{'title': item.snippet.title, 'videoid': item.id.videoId}]));
+  //     });
+  //   });
+  //         // resetVideoHeight();
+  // });
 
-  
+        function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
+       request.execute(function(response) {
+          var results = response.result;
+          $("#ytNew").html("");
+          $.each(results.items, function(index, item) {
+            $.get("tpl.html", function(data) {
+                $("#ytNew").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
+            });
+          });
+          // resetVideoHeight();
+          console.log(results)
+       });
 
 });
 
