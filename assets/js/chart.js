@@ -7,13 +7,13 @@ function populateChart (label, value) {
     data: {
       labels: label,
       datasets: [{
-        label: 'secs on topic',
+        label: 'Time on topic',
         data: value,
         backgroundColor: [
-          'rgba(255, 99, 132, 0.0)',
-          'rgba(54, 162, 235, 0.0)',
-          'rgba(255, 206, 86, 0.0)',
-          'rgba(75, 192, 192, 0.0)',
+          'rgba(255, 99, 132, 1.0)',
+          'rgba(54, 162, 235, 1.0)',
+          'rgba(255, 206, 86, 1.0)',
+          'rgba(75, 192, 192, 1.0)',
           'rgba(153, 102, 255, 1.0)',
           'rgba(255, 159, 64, 1.0)'
         ],
@@ -30,10 +30,11 @@ function populateChart (label, value) {
     },
     options: {
       scales: {
-        yAxes: [{
+        xAxes: [{
           ticks: {
+            maxTicksLimit: 20,
             beginAtZero: true,
-            fontSize: 20,
+            fontSize: 8,
             fontColor: '#666'
 
           }
@@ -42,6 +43,8 @@ function populateChart (label, value) {
     }
   });
 }
+
+
 
 firebase.database().ref('/users').on('value', function (data) {
   var keyz = firebase.auth().currentUser.uid;
@@ -59,6 +62,7 @@ firebase.database().ref('/users').on('value', function (data) {
     // searchTerm[key] = dat[keyz].papers[key].timeRead;
     label.push(key);
     value.push(dat[keyz].papers[key].timeRead);
+
   }
   console.log(searchTerm);
 
