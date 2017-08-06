@@ -249,7 +249,7 @@ $(document).on('click', '#newButton', function () {
   // $('#ytNew').html(iframe);
 
 
-  /* COMMENTED OUT YOUTBE API
+   //COMMENTED OUT YOUTBE API
 
   var request = gapi.client.youtube.search.list({
     part: 'snippet',
@@ -276,7 +276,7 @@ $(document).on('click', '#newButton', function () {
           // resetVideoHeight();
   });
 
-  */
+  
 
 });
 
