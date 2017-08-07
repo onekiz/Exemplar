@@ -5,6 +5,9 @@ var ref;
 var timeClicked;  // to track when article was clicked
 var timeStopped;  // to track when article was stopped
 var currentIndex;
+var videowatch= " ";
+var youtube=0;
+var study= 0;
 
 // create div variables
 var divArticleList = $('#article-list');
@@ -172,11 +175,26 @@ $(document).on('click', '#stop', function () {
     // if object has a value then add time from database
     if(data.val().timeRead){
       timeRead += data.val().timeRead;
+      videowatch= $(".ytp-time-current").val();
+      console.log(videowatch);
+      if(!videowatch){
+        videowatch=0;
+        console.log(videowatch)
+      }
+      else{
+        videowatch.split(":");
+        youtube= videowatch[0]*60+videowatch[1];
+        console.log(youtube)
+      }
+      study= timeRead+youtube;
+      console.log(study);
     }
   })
 
   postData = {
     timeRead: timeRead
+    youtube: youtube
+    study: study
   };
 
   firebase.database().ref('/users/' + userID + '/papers/' + searchTerm + '/' + currentIndex).update(postData);
