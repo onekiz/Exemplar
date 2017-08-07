@@ -183,7 +183,7 @@ $(document).on('click', '#stop', function () {
       }
       else{
         videowatch.split(":");
-        youtube= videowatch[0]*60+videowatch[1];
+        youtube= parseInt(videowatch[0])*60+parseInt(videowatch[1]);
         console.log(youtube)
       }
       study= timeRead+youtube;
@@ -193,8 +193,8 @@ $(document).on('click', '#stop', function () {
 
   postData = {
     timeRead: timeRead
-    youtube: youtube
-    study: study
+    //youtube: youtube
+    //study: study
   };
 
   firebase.database().ref('/users/' + userID + '/papers/' + searchTerm + '/' + currentIndex).update(postData);
