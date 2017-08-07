@@ -175,7 +175,7 @@ $(document).on('click', '#stop', function () {
     // if object has a value then add time from database
     if(data.val().timeRead){
       timeRead += data.val().timeRead;
-      videowatch= $(".ytp-time-current").val();
+      videowatch= $(".ytp-time-current");
       console.log(videowatch);
       if(!videowatch){
         videowatch=0;
