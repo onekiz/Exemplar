@@ -311,7 +311,7 @@ $(document).on('click', '#newButton', function () {
                 $("#ytNew").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
             });
           });
-          // resetVideoHeight();
+          resetVideoHeight();
           console.log(results)
        });
 
@@ -319,9 +319,9 @@ $(document).on('click', '#newButton', function () {
 
 //     $(window).on("resize", resetVideoHeight);
 
-// function resetVideoHeight() {
-//     $("#ytNew").css("height", "405px","width","720px");
-// }
+function resetVideoHeight() {
+    $("#ytNew").css("height", "300","width","500");
+}
 
 function init () {
   gapi.client.setApiKey('AIzaSyDZh8uYaoVKAcc9hYsRzC1o9HuQH3SwTYk');
