@@ -21,7 +21,7 @@ var config = {
 };
 firebase.initializeApp(config);
 var database = firebase.database();
-verifyUserLoggedIn();
+//verifyUserLoggedIn();
 
 /**
   * redirects to login page if user is not logged in
