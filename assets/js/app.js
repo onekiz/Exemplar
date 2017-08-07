@@ -21,6 +21,22 @@ var config = {
 };
 firebase.initializeApp(config);
 var database = firebase.database();
+verifyUserLoggedIn();
+
+/**
+  * redirects to login page if user is not logged in
+*/
+function verifyUserLoggedIn(){
+  var userLoggedIn = firebase.auth().currentUser;
+  if(userLoggedIn){
+    return;
+  } else {
+    window.location = 'logIn.html';
+  }
+
+}
+
+
 
 /**
   * @desc populate articles from search input into table of contents
@@ -142,7 +158,6 @@ var stopwatch = {
 };
 
 // ///////stopping timer and pushing time to firebase/////////
-// TODO add update time subject
 $(document).on('click', '#stop', function () {
   // ref.once('value', function (user) {
   //   ref.child('paperTime').set(converted);
@@ -154,8 +169,7 @@ $(document).on('click', '#stop', function () {
   //update time for subject
   var userID = firebase.auth().currentUser.uid;
   firebase.database().ref('/users/'+userID +'/papers/' + searchTerm).once('value', function(data) {
-    // if object has a value
-    console.log('got here', data.val());
+    // if object has a value then add time from database
     if(data.val().timeRead){
       timeRead += data.val().timeRead;
     }
@@ -164,10 +178,9 @@ $(document).on('click', '#stop', function () {
   postData = {
     timeRead: timeRead
   };
+
   firebase.database().ref('/users/' + userID + '/papers/' + searchTerm + '/' + currentIndex).update(postData);
   firebase.database().ref('/users/' + userID + '/papers/' + searchTerm).update(postData);
-
-
 
   stopwatch.stop();
   $('#wrapper').toggleClass('show');
