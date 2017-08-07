@@ -320,7 +320,7 @@ $(document).on('click', '#newButton', function () {
 //     $(window).on("resize", resetVideoHeight);
 
 function resetVideoHeight() {
-    $("#ytNew").css("height", "300","width","500");
+    $("#ytNew").attr("height", 300).attr("width",500);
 }
 
 function init () {
