@@ -158,7 +158,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     // //updated user info//////////
     console.log(user);
     firstLogIn = false;
-    // window.location = 'index.html';
+    window.location = 'index.html';
   } else {
     console.log('not logged in');
   }
