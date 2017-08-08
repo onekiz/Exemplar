@@ -51,7 +51,7 @@ $('#login').on('click', function() {
 var file;
 $(document).on('change', '#imgFile', function(e) {
   e.preventDefault();
-  file = e.target.files[0];
+  file = e.target.files[0] || '';
   console.log(file.name);
 });
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -119,7 +119,7 @@ function account() {
                               if (err) {
                                 console.log(err);
                               } else {
-                              //window.location = 'index.html';
+                              window.location = 'main.html';
                               }
                             });
                           }, function (error) {
@@ -128,7 +128,7 @@ function account() {
                           });
                           console.log("then bitimi newaccount if bitimi" + newaccount);
                       } else {
-                        //window.location = 'index.html';
+                        window.location = 'main.html';
                       }
       } else {
         console.log('not logged in');
