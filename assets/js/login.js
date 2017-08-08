@@ -119,24 +119,15 @@ function account() {
                               if (err) {
                                 console.log(err);
                               } else {
-<<<<<<< HEAD
-                              window.location = 'index.html';
-=======
                               window.location = 'main.html';
->>>>>>> 76df156ac6afd56fa7b2622e4227aa7064fac353
                               }
                             });
                           }, function (error) {
                             console.log('not able to update user info');
                             console.log(error);
                           });
-                          console.log("then bitimi newaccount if bitimi" + newaccount);
                       } else {
-<<<<<<< HEAD
-                        window.location = 'index.html';
-=======
                         window.location = 'main.html';
->>>>>>> 76df156ac6afd56fa7b2622e4227aa7064fac353
                       }
       } else {
         console.log('not logged in');
