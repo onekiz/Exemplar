@@ -161,8 +161,7 @@ var stopwatch = {
 };
 
 $(document).on('click', 'button.ytp-play-button', function () {
-videowatch= document.getElementsByClassName("ytp-time-current")[0].textContent
-console.log(videowatch);
+document.getElementsByClassName("ytp-time-current")[0].textContent
 })
 
 // ///////stopping timer and pushing time to firebase/////////
@@ -181,16 +180,16 @@ $(document).on('click', '#stop', function () {
     // if object has a value then add time from database
     if(data.val().timeRead){
       timeRead += data.val().timeRead;
-      
-      if(!videowatch){
-        videowatch=0;
-        console.log(videowatch)
-      }
-      else{
-        videowatch.split(":");
-        youtube= parseInt(videowatch[0])*60+parseInt(videowatch[1]);
+      if(typeof(document.getElementsByClassName("ytp-time-current")[0].textContent.split(":")[0]=== "number")){
+      // if(!videowatch){
+      //   videowatch=0;
+      //   console.log(videowatch)
+      // }
+      // else{
+        youtube= parseInt(document.getElementsByClassName("ytp-time-current")[0].textContent.split(":")[0])*60+parseInt(document.getElementsByClassName("ytp-time-current")[0].textContent.split(":")[1]);
         console.log(youtube)
       }
+      else {youtube=0}
       study= timeRead+youtube;
       console.log(study);
     }
