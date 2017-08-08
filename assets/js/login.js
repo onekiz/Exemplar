@@ -119,7 +119,7 @@ function account() {
                               if (err) {
                                 console.log(err);
                               } else {
-                              //window.location = 'index.html';
+                              window.location = 'index.html';
                               }
                             });
                           }, function (error) {
@@ -128,7 +128,7 @@ function account() {
                           });
                           console.log("then bitimi newaccount if bitimi" + newaccount);
                       } else {
-                        //window.location = 'index.html';
+                        window.location = 'index.html';
                       }
       } else {
         console.log('not logged in');
