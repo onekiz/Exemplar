@@ -33,9 +33,9 @@
 
           <form class="navbar-form navbar-left">
             <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search">
+              <input type="text" class="form-control" placeholder="Search">
             </div>
-            <button id="newButton"  type="submit" class="btn btn-default">Search</button>
+            <button id="newButton"  type="submit" class="btn btn-primary">Search</button>
             <div class="btn-group">
               <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span id= "displayName"></span>
@@ -53,11 +53,21 @@
               <div class="dropdown-menu">
                 <a class="dropdown-item" href="profile.html">Profile</a><br>
               </div>
-            </div>
-          </form>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
+            </form>
+
+
+            <form class="navbar-form navbar-right">
+              <div class="btn-group">
+                <a href="profile.html" class="btn btn-primary" role="button">Profile Page</a>
+              </div>
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle logout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">LOG OUT</button>
+              </div>
+            </form>
+          </div>
+
+         </div><!-- container -->
+        </nav>
 
     <div class="container-fluid">
       <!-- navbar -->
@@ -98,31 +108,32 @@
             <label> Number of Article Read </label>
             <canvas id="myChartnumArticle" style = "box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset 0 -3px 3px rgba(0,0,0,0.1);" width="400" height="400"></canvas>
         </div>
-
-
       </div>
     </div><!-- container div -->
+  </div>
 
 
-
+    <div class="container-fluid">
     <div id="wrapper" class = "hide">
 
          <div id="display">00:00</div>
 
          <!-- Div containing our stopwatch controls -->
         <div class="btn-group" id="buttons">
-          <button id="stop" type="button" class="btn btn-danger">Stop</button>
+          <button id="stop" type="button" class="btn btn-danger btn-lg btn-block">Stop</button>
         </div>
 
        </div>
+    </div>
+
 
     <script src="./assets/js/jquery-2.2.4.min.js" charset="utf-8"></script>
     <script src="./assets/js/bootstrap.min.js" charset="utf-8"></script>
     <script src="./assets/js/moment.js" charset="utf-8"></script>
     <script src="./assets/js/chart.bundle.min.js" charset="utf-8"></script>
-    <script src="https://apis.google.com/js/client.js?onload=init"></script>
     <script src="./assets/js/app.js" charset="utf-8"></script>
     <script src="./assets/js/chart.js" charset="utf-8"></script>
+    <script src="https://apis.google.com/js/client.js?onload=init"></script>
 
   </body>
 </html>

@@ -5,10 +5,14 @@ var ref;
 var timeClicked;  // to track when article was clicked
 var timeStopped;  // to track when article was stopped
 var currentIndex;
+var videowatch= " ";
+var youtube=0;
+var study= 0;
 
 // create div variables
 var divArticleList = $('#article-list');
 var divArticleCurrent = $('#article-current');
+var divArtRed = $("#artRed");
 
 // Initialize Firebase
 var config = {
@@ -21,6 +25,24 @@ var config = {
 };
 firebase.initializeApp(config);
 var database = firebase.database();
+// verifyUserLoggedIn();
+
+/**
+  * redirects to login page if user is not logged in
+*/
+function verifyUserLoggedIn(){
+  var userLoggedIn = firebase.auth().currentUser;
+  if(userLoggedIn){
+    console.log("logged in");
+  } else {
+    // window.location = 'login2.html';
+    console.log('not logged in');
+    console.log(userLoggedIn);
+  }
+
+}
+
+
 
 /**
   * @desc populate articles from search input into table of contents
@@ -49,19 +71,20 @@ function displayCurrentArticle (article) {
   html = html + article['sru:recordData']['pam:message']['pam:article']['xhtml:head']['dc:description'];
   html = html + '<button id="outside-article" class="btn btn-primary" value="'+currentIndex+'"href="' + article.link + '" target="_blank">Click here for link</button>';
 
-  /* add document in iframe
+   /* add document in iframe
    * delete if we skip iframe
    html = html + '<iframe src="' + article.link + '" ></iframe>';
   */
 
   divArticleCurrent.html(html);
+  divArtRed.append("<li>" + article.title + "</li>");/////////////////////////////////////////
 }
 
 // add click listener to each article title
 divArticleList.on('click', '.article-title', function () {
   currentIndex = $(this).attr('value');
   displayCurrentArticle(articleList[currentIndex]);
-});
+ });
 
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ///////TIMER FOR CLICKED LINK/////////////////////////////////////
@@ -141,8 +164,11 @@ var stopwatch = {
   }
 };
 
+$(document).on('click', 'button.ytp-play-button', function () {
+document.getElementsByClassName("ytp-time-current")[0].textContent
+})
+
 // ///////stopping timer and pushing time to firebase/////////
-// TODO add update time subject
 $(document).on('click', '#stop', function () {
   // ref.once('value', function (user) {
   //   ref.child('paperTime').set(converted);
@@ -151,11 +177,11 @@ $(document).on('click', '#stop', function () {
   var timeRead = timeStopped-timeClicked;
   console.log('time difference: ', timeRead);
 
+
   //update time for subject
   var userID = firebase.auth().currentUser.uid;
   firebase.database().ref('/users/'+userID +'/papers/' + searchTerm).once('value', function(data) {
-    // if object has a value
-    console.log('got here', data.val());
+    // if object has a value then add time from database
     if(data.val().timeRead){
       var readHistory = data.val().timeRead + timeRead;
       var postDat = {
@@ -238,6 +264,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     $('#displayName').html(' Welcome ' + user.displayName + ' ' + user.email);
   } else {
     console.log('not logged in');
+    window.location = 'login2.html';
   }
 });
 
@@ -246,7 +273,7 @@ $(document).on('click', '.btn.btn-primary.dropdown-toggle.logout', function () {
 
   firebase.auth().signOut().then(function () {
               // Sign-out successful. Back to log in page
-    window.location = 'logIn.html';
+    window.location = 'login2.html';
   }).catch(function (error) {
               // Handling error
     console.log(error);
@@ -266,42 +293,66 @@ $(document).on('click', '#newButton', function () {
   // $('#ytNew').html(iframe);
 
 
-  /* COMMENTED OUT YOUTBE API
+   //COMMENTED OUT YOUTBE API
 
-  var request = gapi.client.youtube.search.list({
-    part: 'snippet',
-    type: 'video',
-    q: encodeURIComponent($('input').val().trim()).replace(/%20/g, '+'),
-    maxResults: 1,
-    order: 'relevance',
-    topicId: '/m/01k8wb', // knowledge topics only
-    safeSearch: 'strict', // no inappropriate material
-    publishedAfter: '2015-01-01T00:00:00Z'
+  // var request = gapi.client.youtube.search.list({
+  //   part: 'snippet',
+  //   type: 'video',
+  //   q: encodeURIComponent($('input').val().trim()).replace(/%20/g, '+'),
+  //   maxResults: 1,
+  //   order: 'relevance',
+  //   topicId: '/m/01k8wb', // knowledge topics only
+  //   safeSearch: 'strict', // no inappropriate material
+  //   publishedAfter: '2015-01-01T00:00:00Z'
 
-  });
+  // });
+
+   var request = gapi.client.youtube.search.list({
+            part: "snippet",
+            type: "video",
+            q: encodeURIComponent($('input').val().trim()).replace(/%20/g, "+"),
+            maxResults: 1,
+            order: "relevance",
+            topicId: "/m/01k8wb",
+            safeSearch: "strict",
+            publishedAfter: "2015-01-01T00:00:00Z"
+  // add iframe to html
+  // $('#ytNew').html(iframe);
+})
 
  // execute the request
-  function tplawesome (e, t) { res = e; for (var n = 0; n < t.length; n++) { res = res.replace(/\{\{(.*?)\}\}/g, function (e, r) { return t[n][r]; }); } return res; }
-  request.execute(function (response) {
-    var results = response.result;
-    $('#ytNew').html('');
-    $.each(results.items, function (index, item) {
-      $.get('tpl.html', function (data) {
-        $('#ytNew').append(tplawesome(data, [{'title': item.snippet.title, 'videoid': item.id.videoId}]));
-      });
-    });
-          // resetVideoHeight();
-  });
+  // function tplawesome (e, t) { res = e; for (var n = 0; n < t.length; n++) { res = res.replace(/\{\{(.*?)\}\}/g, function (e, r) { return t[n][r]; }); } return res; }
+  // request.execute(function (response) {
+  //   var results = response.result;
+  //   $('#ytNew').html('');
+  //   $.each(results.items, function (index, item) {
+  //     $.get('tpl.html', function (data) {
+  //       $('#ytNew').append(tplawesome(data, [{'title': item.snippet.title, 'videoid': item.id.videoId}]));
+  //     });
+  //   });
+  //         // resetVideoHeight();
+  // });
 
-  */
+        function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
+       request.execute(function(response) {
+          var results = response.result;
+          $("#ytNew").html("");
+          $.each(results.items, function(index, item) {
+            $.get("tpl.html", function(data) {
+                $("#ytNew").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
+            });
+          });
+          resetVideoHeight();
+          console.log(results)
+       });
 
 });
 
 //     $(window).on("resize", resetVideoHeight);
 
-// function resetVideoHeight() {
-//     $("#ytNew").css("height", "405px","width","720px");
-// }
+function resetVideoHeight() {
+    $("#ytNew").style.width = "420px";
+}
 
 function init () {
   gapi.client.setApiKey('AIzaSyDZh8uYaoVKAcc9hYsRzC1o9HuQH3SwTYk');

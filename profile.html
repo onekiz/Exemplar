@@ -14,7 +14,7 @@
 
 <body>
 <nav class="navbar navbar-default">
-      <div class="container-fluid">
+    <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -29,31 +29,30 @@
 
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style = "border-bottom: 1px solid gray;">
 
-          <form class="navbar-form navbar-left">
-			<div class="btn-group">
-              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span id= "displayName"></span>
-              </button>
-              </div>
+	<form class="navbar-form navbar-left">
+				<div class="btn-group">
+	              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	              	<span id= "displayName"></span>
+	              </button>
+	              </div>
+              </form>
 
-            <div class="btn-group">
-
-				<button type="button" class="btn btn-secondary dropdown-toggle"><a class="mainBtn" href="index.html">Main Page</a></button>
-
-			</div>
-
-            <div class="btn-group">
-	            <button type="button" class="btn btn-primary dropdown-toggle logout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">LOG OUT</button>
-            </div>
-
-          </form>
-          </div>
-
-         </div><!-- container -->
-	  </nav>
+            <form class="navbar-form navbar-right">
+            	<div class="btn-group">
+                	<a href="index.html" class="btn btn-primary" role="button">Main Page</a>
+            	</div>
+              	<div class="btn-group">
+                	<button type="button" class="btn btn-primary dropdown-toggle logout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">LOG OUT</button>
+              	</div>
+            </form>
+        </div>
+    </div><!-- container -->
+</nav>
 
 
-<div class = "container">
+<div class = "container-fluid">
+<div class = "row">
+
 
 			<div class = "jumbotron" style = " margin-left: 20%; margin-right:20%; background-color: #a14a47; box-shadow: 10px 10px 5px #888888, inset 0 -3px 3px rgba(0,0,0,0.1); border-radius: 50px;">
 				<div class = "row">
@@ -130,6 +129,18 @@
 
 			      </div>
 			</div>
+<<<<<<< HEAD
+=======
+			<div class = "col-md-4">
+				<div>
+          			<canvas id="myChart" width="400" height="400"></canvas>
+        		</div>
+        		<div>
+          			<ol id="artRed"></ol><!-- ***************************************************** -->
+        		</div>
+	       	</div>
+		</div>
+>>>>>>> cef33c85581eb9495466b8392b271394cfd81d13
 </div>
 
 
