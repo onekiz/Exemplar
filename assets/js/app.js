@@ -264,7 +264,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     $('#displayName').html(' Welcome ' + user.displayName + ' ' + user.email);
   } else {
     console.log('not logged in');
-    window.location = 'login2.html';
+    window.location = 'index.html';
   }
 });
 
@@ -273,7 +273,7 @@ $(document).on('click', '.btn.btn-primary.dropdown-toggle.logout', function () {
 
   firebase.auth().signOut().then(function () {
               // Sign-out successful. Back to log in page
-    window.location = 'login2.html';
+    window.location = 'index.html';
   }).catch(function (error) {
               // Handling error
     console.log(error);
