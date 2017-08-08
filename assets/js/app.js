@@ -24,7 +24,7 @@ var config = {
 };
 firebase.initializeApp(config);
 var database = firebase.database();
-//verifyUserLoggedIn();
+// verifyUserLoggedIn();
 
 /**
   * redirects to login page if user is not logged in
@@ -32,9 +32,11 @@ var database = firebase.database();
 function verifyUserLoggedIn(){
   var userLoggedIn = firebase.auth().currentUser;
   if(userLoggedIn){
-    return;
+    console.log("logged in");
   } else {
-    window.location = 'logIn.html';
+    // window.location = 'login2.html';
+    console.log('not logged in');
+    console.log(userLoggedIn);
   }
 
 }
@@ -177,7 +179,7 @@ $(document).on('click', '#stop', function () {
     // if object has a value then add time from database
     if(data.val().timeRead){
       timeRead += data.val().timeRead;
-      
+
       if(!videowatch){
         videowatch=0;
         console.log(videowatch)
@@ -253,6 +255,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     $('#displayName').html(' Welcome ' + user.displayName + ' ' + user.email);
   } else {
     console.log('not logged in');
+    window.location = 'login2.html';
   }
 });
 
