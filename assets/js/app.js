@@ -359,7 +359,7 @@ $(document).on('click', '#newButton', function () {
 //     $(window).on("resize", resetVideoHeight);
 
 function resetVideoHeight() {
-    $("#ytNew").attr("height", 236).attr("width",420);
+    $("#ytNew").style.width = "420px";
 }
 
 function init () {
