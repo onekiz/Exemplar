@@ -182,7 +182,7 @@ $(document).on('click', '#stop', function () {
     // if object has a value then add time from database
     if(data.val().timeRead){
       timeRead += data.val().timeRead;
-<<<<<<< HEAD
+
 
       if(!videowatch){
         videowatch=0;
@@ -191,7 +191,8 @@ $(document).on('click', '#stop', function () {
       else{
         videowatch.split(":");
         youtube= parseInt(videowatch[0])*60+parseInt(videowatch[1]);
-=======
+      }
+
       if(typeof(document.getElementsByClassName("ytp-time-current")[0].textContent.split(":")[0]=== "number")){
       // if(!videowatch){
       //   videowatch=0;
@@ -199,7 +200,7 @@ $(document).on('click', '#stop', function () {
       // }
       // else{
         youtube= parseInt(document.getElementsByClassName("ytp-time-current")[0].textContent.split(":")[0])*60+parseInt(document.getElementsByClassName("ytp-time-current")[0].textContent.split(":")[1]);
->>>>>>> fab1a60e00d90058f5297ca1193626fda3e8f0d5
+
         console.log(youtube)
       }
       else {youtube=0}
