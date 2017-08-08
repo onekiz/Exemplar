@@ -115,24 +115,25 @@ function account() {
                                 profession: $('#profession').val(),
                                 country: $('#country').val(),
                                 imgUrl: file.name
-                            }, function (err) {
-                              if (err) {
-                                console.log(err);
-                              } else {
-                              window.location = 'main.html';
-                              }
+                              }, function (err) {
+                                if (err) {
+                                  console.log(err);
+                                } else {
+                                window.location = 'main.html';
+                                }
+                              });
+                            }, function (error) {
+                              console.log('not able to update user info');
+                              console.log(error);
                             });
-                          }, function (error) {
-                            console.log('not able to update user info');
-                            console.log(error);
-                          });
-                      } else {
-                        window.location = 'main.html';
-                      }
-      } else {
-        console.log('not logged in');
-      }
-    });
+                        } else {
+                          window.location = 'main.html';
+                        }
+        } else {
+          console.log('not logged in');
+        }
+      });
+
 
 
 
