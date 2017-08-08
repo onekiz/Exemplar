@@ -168,6 +168,8 @@ $(document).on('click', '#stop', function () {
   timeStopped = new moment().unix();
   var timeRead = timeStopped-timeClicked;
   console.log('time difference: ', timeRead);
+  videowatch= document.getElementsByClassName("ytp-time-current")[0].textContent
+  console.log(videowatch);
 
   //update time for subject
   var userID = firebase.auth().currentUser.uid;
@@ -175,8 +177,7 @@ $(document).on('click', '#stop', function () {
     // if object has a value then add time from database
     if(data.val().timeRead){
       timeRead += data.val().timeRead;
-      videowatch= document.getElementsByClassName("ytp-time-current")[0].textContent
-      console.log(videowatch);
+      
       if(!videowatch){
         videowatch=0;
         console.log(videowatch)
