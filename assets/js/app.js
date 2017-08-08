@@ -260,7 +260,7 @@ $(document).on('click', '.btn.btn-primary.dropdown-toggle.logout', function () {
 
   firebase.auth().signOut().then(function () {
               // Sign-out successful. Back to log in page
-    window.location = 'logIn.html';
+    window.location = 'login2.html';
   }).catch(function (error) {
               // Handling error
     console.log(error);

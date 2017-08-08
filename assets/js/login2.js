@@ -72,15 +72,18 @@ firebase.auth().onAuthStateChanged(function (user) {
       // update displayname
       user.updateProfile(
         {
-          displayName: $('#name').val()
+          displayName: $('#first-name').val()
           // photoURL: file.name
         }).then(function () {
           console.log('Update is successfull');
           firebase.database().ref('users/' + user.uid).set({
             email: $('#email').val(),
           // pass: users.pass,
-            displayName: $('#name').val(),
-          // lastName: $('#lastName').val(),
+            displayName: $('#first-name').val(),
+            lastName: $('#last-name').val(),
+            aboutMe: 'Please edit the about me section.',
+            Notes: 'Add notes here',
+            profession: 'Enter Occupation',
             paperTitle: '',
             paperTime: ''
           // imgUrl: file.name
