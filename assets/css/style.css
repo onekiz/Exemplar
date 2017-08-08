@@ -10,13 +10,80 @@
 }
 
 .article-title:hover {
-  background-color: rgb(242, 163, 80);
+  background-color: rgb(204,255,255);
   cursor: hand;
   cursor: pointer;
 }
 
+#start {
+
+  background-image: url(cover.jpg);
+  background-repeat: no-repeat;
+ background-size: cover;
+ font-family: bree serif;
 
 
+ padding: 200px 100px 100px 50px;
+}
+
+#start2 {
+  background-image: url(SecondTable.jpg);
+  background-repeat: repeat;
+ background-size: cover;
+ font-family: bree serif;
+
+}
+
+.navbar-brand {
+  font-family: bree serif;
+  font-size: 30px;
+}
+
+.auth {
+  max-width: 80%;
+  padding-left: 20%;
+  color: rgb(204,255,255);
+  font-weight:  1000;
+  -webkit-text-stroke-width: .5px;
+  -webkit-text-stroke-color: rgb(51,25,0);
+}
+
+.form-control {
+  color: rgb(128, 128, 128);
+  -webkit-text-stroke-width: 0px;
+  -webkit-text-stroke-color: rgb(128, 228, 128);
+}
+
+#login, #signup, #github {
+  color: rgb(128, 128, 128);brfore
+  -webkit-text-stroke-width: .5px;
+  -webkit-text-stroke-color: rgb(51,25,0);
+  background-color: rgb(204,255,255)
+}
+
+/*#email, #password {
+color: rgb(96, 96, 96);
+-webkit-text-stroke-width: .0px;
+-webkit-text-stroke-color: rgb(96, 96, 96);*/
+
+}
+
+#notes {
+  background-color: white;
+}
+
+#logout {
+  float: right;
+}
+#imgFile, #divSign, #submitAccount, #cancel {
+  color: black;
+  -webkit-text-stroke-width: 0px;
+  -webkit-text-stroke-color: black;
+}
+
+#indexnavbar {
+  background-color: rgb(204,255,255);
+}
 
 #display {
   font-family: monospace;
@@ -62,7 +129,6 @@
   background: white;
 }
 
-h4, h5, h6 {
+h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
-
