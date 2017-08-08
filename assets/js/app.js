@@ -160,6 +160,9 @@ var stopwatch = {
   }
 };
 
+videowatch= document.getElementsByClassName("ytp-time-current")[0].textContent
+console.log(videowatch);
+
 // ///////stopping timer and pushing time to firebase/////////
 $(document).on('click', '#stop', function () {
   // ref.once('value', function (user) {
@@ -168,8 +171,7 @@ $(document).on('click', '#stop', function () {
   timeStopped = new moment().unix();
   var timeRead = timeStopped-timeClicked;
   console.log('time difference: ', timeRead);
-  videowatch= document.getElementsByClassName("ytp-time-current")[0].textContent
-  console.log(videowatch);
+  
 
   //update time for subject
   var userID = firebase.auth().currentUser.uid;
