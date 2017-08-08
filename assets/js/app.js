@@ -157,17 +157,33 @@ $(document).on('click', '#stop', function () {
     // if object has a value
     console.log('got here', data.val());
     if(data.val().timeRead){
-      timeRead += data.val().timeRead;
+      var readHistory = data.val().timeRead + timeRead;
+      var postDat = {
+          timeRead: readHistory
+      };
+      firebase.database().ref('/users/' + userID + '/papers/' + searchTerm).update(postDat);
     }
-  })
+    else{
+      var postDat = {
+          timeRead: timeRead
+      };
+      firebase.database().ref('/users/' + userID + '/papers/' + searchTerm).update(postDat);
+    }
 
-  postData = {
-    timeRead: timeRead
-  };
-  firebase.database().ref('/users/' + userID + '/papers/' + searchTerm + '/' + currentIndex).update(postData);
-  firebase.database().ref('/users/' + userID + '/papers/' + searchTerm).update(postData);
-
-
+  if(data.val()[currentIndex]["timeRead"]){
+    var readArticleHistory = data.val()[currentIndex]["timeRead"] + timeRead;
+    var postDat = {
+        timeRead: readArticleHistory
+    };
+    firebase.database().ref('/users/' + userID + '/papers/' + searchTerm + '/' + currentIndex).update(postDat)
+  }
+  else{
+    var postDat = {
+        timeRead: timeRead
+    };
+    firebase.database().ref('/users/' + userID + '/papers/' + searchTerm + '/' + currentIndex).update(postDat)
+  }
+});
 
   stopwatch.stop();
   $('#wrapper').toggleClass('show');
@@ -194,6 +210,7 @@ $(document).on('click','#outside-article', function(){
   var postData = {
 
     paperSearchTerm: searchTerm,
+    paperTitle: articleList[currentIndex].title,
     paperLink: articleList[currentIndex].link,
     paperID: articleList[currentIndex].id,
     paperPublisher: articleList[currentIndex]['sru:recordData']['pam:message']['pam:article']['xhtml:head']['dc:publisher'],
