@@ -12,6 +12,7 @@ var study= 0;
 // create div variables
 var divArticleList = $('#article-list');
 var divArticleCurrent = $('#article-current');
+var divArtRed = $("#artRed");
 
 // Initialize Firebase
 var config = {
@@ -70,19 +71,20 @@ function displayCurrentArticle (article) {
   html = html + article['sru:recordData']['pam:message']['pam:article']['xhtml:head']['dc:description'];
   html = html + '<button id="outside-article" class="btn btn-primary" value="'+currentIndex+'"href="' + article.link + '" target="_blank">Click here for link</button>';
 
-  /* add document in iframe
+   /* add document in iframe
    * delete if we skip iframe
    html = html + '<iframe src="' + article.link + '" ></iframe>';
   */
 
   divArticleCurrent.html(html);
+  divArtRed.append("<li>" + article.title + "</li>");/////////////////////////////////////////
 }
 
 // add click listener to each article title
 divArticleList.on('click', '.article-title', function () {
   currentIndex = $(this).attr('value');
   displayCurrentArticle(articleList[currentIndex]);
-});
+ });
 
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ///////TIMER FOR CLICKED LINK/////////////////////////////////////
@@ -357,7 +359,7 @@ $(document).on('click', '#newButton', function () {
 //     $(window).on("resize", resetVideoHeight);
 
 function resetVideoHeight() {
-    $("#ytNew").attr("height", 300).attr("width",500);
+    $("#ytNew").attr("height", 236).attr("width",420);
 }
 
 function init () {

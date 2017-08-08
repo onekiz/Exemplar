@@ -35,15 +35,16 @@
   width: 500px;
 
   /* Positioning */
-  margin: 50px auto 0;
+  margin: 10px auto 0;
 }
 
 #buttons { /* Typography */
-  text-align: center;
+  /* Typography text-align: center;*/
 }
 
 #stop {
-}
+  width: 500px;
+  }
 
 #laps {
   width: 100%;
