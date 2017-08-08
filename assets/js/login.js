@@ -51,7 +51,7 @@ $('#login').on('click', function() {
 var file;
 $(document).on('change', '#imgFile', function(e) {
   e.preventDefault();
-  file = e.target.files[0];
+  file = e.target.files[0] || '';
   console.log(file.name);
 });
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -119,7 +119,11 @@ function account() {
                               if (err) {
                                 console.log(err);
                               } else {
+<<<<<<< HEAD
                               window.location = 'index.html';
+=======
+                              window.location = 'main.html';
+>>>>>>> 76df156ac6afd56fa7b2622e4227aa7064fac353
                               }
                             });
                           }, function (error) {
@@ -128,7 +132,11 @@ function account() {
                           });
                           console.log("then bitimi newaccount if bitimi" + newaccount);
                       } else {
+<<<<<<< HEAD
                         window.location = 'index.html';
+=======
+                        window.location = 'main.html';
+>>>>>>> 76df156ac6afd56fa7b2622e4227aa7064fac353
                       }
       } else {
         console.log('not logged in');
