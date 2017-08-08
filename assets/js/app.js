@@ -163,7 +163,7 @@ var stopwatch = {
 $(document).on('click', 'button.ytp-play-button', function () {
 videowatch= document.getElementsByClassName("ytp-time-current")[0].textContent
 console.log(videowatch);
-}
+})
 
 // ///////stopping timer and pushing time to firebase/////////
 $(document).on('click', '#stop', function () {
