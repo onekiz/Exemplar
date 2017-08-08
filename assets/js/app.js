@@ -165,7 +165,9 @@ var stopwatch = {
 };
 
 $(document).on('click', 'button.ytp-play-button', function () {
-document.getElementsByClassName("ytp-time-current")[0].textContent
+//document.getElementsByClassName("ytp-time-current")[0].textContent
+videowatch= document.getElementsByClassName('ytp-time-current')[0].innerHTML
+console.log(videowatch)
 })
 
 // ///////stopping timer and pushing time to firebase/////////
