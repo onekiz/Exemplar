@@ -5,7 +5,7 @@ var ref;
 var timeClicked;  // to track when article was clicked
 var timeStopped;  // to track when article was stopped
 var currentIndex;
-var videowatch;
+var videowatch= " ";
 var youtube=0;
 var study= 0;
 
@@ -164,11 +164,7 @@ var stopwatch = {
   }
 };
 
-$(document).on('click', 'button.ytp-play-button', function () {
-//document.getElementsByClassName("ytp-time-current")[0].textContent
-videowatch= document.getElementsByClassName('ytp-time-current')[0].innerHTML
-//console.log(videowatch)
-})
+
 
 // ///////stopping timer and pushing time to firebase/////////
 $(document).on('click', '#stop', function () {
@@ -320,6 +316,8 @@ $(document).on('click', '#newButton', function () {
             topicId: "/m/01k8wb",
             safeSearch: "strict",
             publishedAfter: "2015-01-01T00:00:00Z"
+            
+
   // add iframe to html
   // $('#ytNew').html(iframe);
 })
@@ -355,7 +353,9 @@ $(document).on('click', '#newButton', function () {
 //     $(window).on("resize", resetVideoHeight);
 
 function resetVideoHeight() {
-    $("#ytNew").style.width = "420px";
+    $(".video").attr("controls", 2)
+    // $("#ytNew").css("controls", 2)
+    // player.getCurrentTime()
 }
 
 function init () {
@@ -364,8 +364,15 @@ function init () {
         // yt api is ready
   });
 }
+// lines 310-356 come from https://github.com/FriesFlorian/viralvideos/blob/master/js/app.js
+//videowatch= document.getElementsByClassName('ytp-time-current')[0].innerHTML
 
-videowatch= document.getElementsByClassName('ytp-time-current')[0].innerHTML
+$(document).on('click', 'button.ytp-play-button', function () {
+//document.getElementsByClassName("ytp-time-current")[0].textContent
+//videowatch= document.getElementsByClassName('ytp-time-current')[0].innerHTML
+//console.log(videowatch)
+
+})
 /**
   * @desc search natureAPI and populate list of titles in table of contents
   * @param string seach - string provided by user in input field
