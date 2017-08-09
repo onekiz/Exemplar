@@ -36,14 +36,21 @@ $('#github').on('click', function(event) {
 });
 
 // ////////Listening Login with email and password////////
-$('#login').on('click', function() {
-  var auth = firebase.auth();
+$('#login').on('click', function(e) {
+  newaccount = false;
+  e.preventDefault();
+  // var auth = firebase.auth();
   var email = $('#username').val();
   var pass = $('#password').val();
-  var promise = auth.signInWithEmailAndPassword(email, pass);
-  promise.catch(function(event) {
-       alert(event.message);
+  firebase.auth().signInWithEmailAndPassword(email, pass).catch(function(e){
+    console.log('error ', e);
   });
+  // promise.then(function(){
+  //   console.log('promises and stuff');
+  // })
+  // promise.catch(function(event) {
+  //      alert(event.message);
+  // });
 });
 
 
