@@ -347,6 +347,7 @@ $(document).on('click', '#newButton', function () {
           });
           resetVideoHeight();
           console.log(results)
+          consol.log(results.items[0].id.videoId)
        });
 
 });
