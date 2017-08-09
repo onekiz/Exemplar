@@ -265,14 +265,16 @@ $(document).on('click','#outside-article', function(){
 firebase.auth().onAuthStateChanged(function (user) {
   console.log(user);
   if (user) {
-    $('#displayName').html(' Welcome ' + user.displayName + ' ' + user.email);
+    // $('#displayName').html(' Welcome ' + user.displayName + ' ' + user.email);
+    $('#displayName').html(user.displayName);
   } else {
     console.log('not logged in');
     window.location = 'index.html';
   }
 });
 
-$(document).on('click', '.btn.btn-primary.dropdown-toggle.logout', function () {
+// $(document).on('click', '.btn.btn-primary.dropdown-toggle.logout', function () {
+$(document).on('click', '.logout', function () {
   event.preventDefault();
 
   firebase.auth().signOut().then(function () {
