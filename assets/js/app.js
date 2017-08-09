@@ -167,7 +167,7 @@ var stopwatch = {
 $(document).on('click', 'button.ytp-play-button', function () {
 //document.getElementsByClassName("ytp-time-current")[0].textContent
 videowatch= document.getElementsByClassName('ytp-time-current')[0].innerHTML
-console.log(videowatch)
+//console.log(videowatch)
 })
 
 // ///////stopping timer and pushing time to firebase/////////
@@ -212,6 +212,8 @@ $(document).on('click', '#stop', function () {
     firebase.database().ref('/users/' + userID + '/papers/' + searchTerm + '/' + currentIndex).update(postDat)
   }
 });
+
+
 
   stopwatch.stop();
   $('#wrapper').toggleClass('show');
@@ -363,6 +365,7 @@ function init () {
   });
 }
 
+videowatch= document.getElementsByClassName('ytp-time-current')[0].innerHTML
 /**
   * @desc search natureAPI and populate list of titles in table of contents
   * @param string seach - string provided by user in input field
