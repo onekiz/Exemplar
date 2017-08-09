@@ -5,7 +5,7 @@ var ref;
 var timeClicked;  // to track when article was clicked
 var timeStopped;  // to track when article was stopped
 var currentIndex;
-var videowatch= " ";
+var videowatch= [];
 var youtube=0;
 var study= 0;
 
