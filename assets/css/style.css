@@ -71,7 +71,8 @@ h4, h5, h6 {
   display: inline-block;
 }
 
-.video w100 {
-  width: 533px;
+iframe{ 
+  width: 533px; 
   height: 300px;
-}
+
+ }
