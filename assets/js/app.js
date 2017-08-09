@@ -342,6 +342,7 @@ $(document).on('click', '#newButton', function () {
           $.each(results.items, function(index, item) {
             $.get("tpl.html", function(data) {
                 $("#ytNew").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
+                console.log("#ytNew");
             });
           });
           resetVideoHeight();
