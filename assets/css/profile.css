@@ -1,0 +1,20 @@
+.jumbotron {
+  margin-left: 20%;
+  margin-right: 20%;
+  background-color: #a14a47;
+  box-shadow: 10px 10px 5px #888888, inset 0 -3px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+}
+
+#userImg {
+  width: 50%;
+  heihgt: 50%;
+  margin-left: 25%;
+  border: 5px solid #9dffe3;
+  border-radius: 100px;
+  background-color: #8ab4c9;
+}
+
+#about-me {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3), inset 0 -3px 3px rgba(0, 0, 0, 0.1);
+}
