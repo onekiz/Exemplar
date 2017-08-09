@@ -70,3 +70,8 @@ h4, h5, h6 {
 #ytNew {
   display: inline-block;
 }
+
+.video-stream {
+  width: 100px;
+  height: 100px;
+}
