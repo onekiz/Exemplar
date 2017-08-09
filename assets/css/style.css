@@ -72,6 +72,6 @@ h4, h5, h6 {
 }
 
 .video-stream {
-  width: 100px;
-  height: 100px;
+  width: 50%;
+  height: 50%;
 }
