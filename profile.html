@@ -13,8 +13,9 @@
 </head>
 
 <body>
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
+<div id="backgroundProfile">
+   <nav class="navbar navbar-default">
+      <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -23,123 +24,109 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-					<a class="navbar-brand" href="main.html">Exemplar</a>
-					<img   src="" style = " margin-top: 5px; border-radius: 10px; background-color: white; width: 40px; height: 40px;" alt="">
+          <a class="navbar-brand" href="#">Exemplar</a>
         </div>
 
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style = "border-bottom: 1px solid gray;">
-
-	<form class="navbar-form navbar-left">
-				<div class="btn-group">
-	              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	              	<span id= "displayName"></span>
-	              </button>
-	              </div>
-              </form>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <form class="navbar-form navbar-left">
+              <!-- <div class="btn-group">
+                <a href="profile.html" class="btn btn-primary" role="button">Profile Page</a>
+              </div> -->
+              <div class="btn-group">
+                	<a href="profile.html" class="btn btn-new right" role="button" id = "displayName"></a>
+            	</div>
+          </form>
 
             <form class="navbar-form navbar-right">
-            	<div class="btn-group">
-                	<a href="main.html" class="btn btn-primary" role="button">Main Page</a>
+              <!-- <div class="btn-group">
+                <a href="profile.html" class="btn btn-primary" role="button">Profile Page</a>
+              </div> -->
+             <div class="btn-group">
+                	<a href="main.html" class="btn btn-new" role="button">Main Page</a>
             	</div>
-              	<div class="btn-group">
-                	<button type="button" class="btn btn-primary dropdown-toggle logout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">LOG OUT</button>
-              	</div>
-            </form>
-        </div>
-    </div><!-- container -->
-</nav>
+              <div class="btn-group">
+                <button type="button" class="btn btn-new" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">LOG OUT</button>
+              </div>
+          </form>
+          
+
+         </div><!-- container -->
+        </nav>
 
 
 <div class = "container-fluid">
-<div class = "row">
+<div class = "row-fluid">
 
 
-			<div class = "jumbotron" style = " margin-left: 20%; margin-right:20%; background-color: #a14a47; box-shadow: 10px 10px 5px #888888, inset 0 -3px 3px rgba(0,0,0,0.1); border-radius: 50px;">
-				<div class = "row">
-					<div class = "col-md-12">
-						<img id = "userImg" src="" style = "width: 50%; heihgt: 50%; margin-left: 25%; border: 5px solid #9dffe3; border-radius: 100px; background-color: #8ab4c9;" alt="">
-						<h2 id = "userName" style = "text-align:center;"> name</h2>
-						<p id = "profession" style = "text-align:center;"> Profession </p>
-						<p id = "country" style = "text-align:center;"> country </p>
-					</div>
-				</div>
-			</div>
-
-			<div class = "row">
-
-						<div class = "col-md-5" style = "box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset 0 -3px 3px rgba(0,0,0,0.1);">
-
-									<div class="row" id="personal">
-												<div class="btn-group">
-														<button type="button"  style = "margin:5px;" class="btn btn-primary btnAboutMe">
-															About Me
-														</button>
-												</div>
-
-												<div class="btn-group">
-														<button type="button"  style = "margin:5px;" class="btn btn-primary btnPaper">
-															Papers
-														</button>
-												</div>
-									</div>
-
-									<div class = "row" >
-													<div class = "col-md-10">
-															<div class = "listPaper hide" id="paper"> </div>
-															<div id="aboutMe">About Me</div>
-													</div>
-
-													<div class = "col-md-2">
-														<button type="button" class="btn btn-primary btnEdit">
-															Edit
-														</button>
-													</div>
-									</div>
-
-<br> <br> <br>
-
-						</div>
-
-
-						<div class = "col-md-1 "></div>
-
-
-						<div class = "col-md-5 " style = "box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset 0 -3px 3px rgba(0,0,0,0.1); margin-bottom: 50px;">
-							<label> Time Spend on Article Read </label>
-							<canvas id="myChart" width="600" height="600"></canvas>
-							<br><br>
-							<label> Number of Article Read </label>
-							<canvas id="myChartnumArticle" width="600" height="600"></canvas>
-							<br><br>
-
-							<div class = "row">
-								<div class = "col-md-10">
-									<h3>Notes</h3>
-									<div id = "noteArea" style = "margin-bottom:50px;"></div>
-								</div>
-								<div class = "col-md-2">
-										<button type="button" class="btn btn-primary btnEditNote" style = "margin-top:20px;">
-											Add
-										</button>
-								</div>
-							</div>
-
-
-
-
-			      </div>
-			</div>
-			<div class = "col-md-4">
-				<div>
-          			<canvas id="myChart" width="400" height="400"></canvas>
-        		</div>
-        		<div>
-          			<ol id="artRed"></ol><!-- ***************************************************** -->
-        		</div>
-	       	</div>
-		</div>
+      <div class = "jumbotron" style = " margin-left: 20%; margin-right:20%; background-color: AliceBlue; box-shadow: 10px 10px 5px #888888, inset 0 -3px 3px rgba(0,0,0,0.1); border-radius: 50px;">
+        <div class = "row">
+          <div class = "col-md-12">
+            <img id = "userImg" src="" style = "width: 50%; heihgt: 50%; margin-left: 25%; border: 5px solid #9dffe3; border-radius: 100px; background-color: #8ab4c9;" alt="">
+            <h2 id = "userName" style = "text-align:center;"> name</h2>
+            <p id = "profession" style = "text-align:center;"> Profession </p>
+            <p id = "country" style = "text-align:center;"> country </p>
+          </div>
+        </div>
+      </div>
+</div>
 </div>
 
+
+
+<div class="container-fluid">
+      <!-- navbar -->
+      <div class="row-fluid">
+
+        <div class = "col-md-7" style = "box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset 0 -3px 3px rgba(0,0,0,0.1); background-color: white;">
+          <div class="row" id="personal">
+                        <div class="btn-group">
+                            <button type="button"  style = "margin:5px;" class="btn btn-primary btnAboutMe">
+                              About Me
+                            </button>
+                        </div>
+
+                        <div class="btn-group">
+                            <button type="button"  style = "margin:5px;" class="btn btn-primary btnPaper">
+                              Papers
+                            </button>
+                        </div>
+
+                        <div class = "listPaper hide" id="paper"> </div>
+                              <div id="aboutMe">About Me</div>
+
+                            <button type="button" class="btn btn-primary btnEdit">
+                              Edit
+                            </button>
+                  </div>
+                  </div>
+
+                  <div class = "col-md-1"></div>
+        
+			
+
+        <div class = "col-md-4" style = "box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset 0 -3px 3px rgba(0,0,0,0.1); margin-bottom: 50px;">
+          
+          <div id="profileChart">
+          <label> Time Spend on Article Read </label>
+              <canvas id="myChart" width="400" height="400"></canvas>
+          </div>    <br><br>
+              <div id="profileChart">
+              <label> Number of Article Read </label>
+              <canvas id="myChartnumArticle" width="400" height="400"></canvas>
+              <br><br>
+              </div>
+              <div id="profileChart">
+              <h3>Notes</h3>
+                  <div id = "noteArea" style = "margin-bottom:50px;"></div>
+                  <button type="button" class="btn btn-primary btnEditNote" style = "margin-top:20px;">
+                      Add
+                    </button>
+                    </div>
+
+
+        </div>
+      </div>
+    </div><!-- container div -->
 
 
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>

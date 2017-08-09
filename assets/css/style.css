@@ -7,15 +7,14 @@
   min-height: 10%;
   margin-bottom: 3%;
   padding: 1%;
+  background-color: AliceBlue;
 }
 
 .article-title:hover {
-  background-color: rgb(242, 163, 80);
+  background-color: cyan;
   cursor: hand;
   cursor: pointer;
 }
-
-
 
 
 #display {
@@ -38,8 +37,14 @@
   margin: 10px auto 0;
 }
 
-#buttons { /* Typography */
-  /* Typography text-align: center;*/
+.btn-new { 
+color: black; background-color: AliceBlue;
+border-color: grey;
+}
+.navbar-default {background-color: AliceBlue}
+.btn-new:hover {
+  color: #fff;
+    background-color: #00b3db;
 }
 
 #stop {
@@ -76,3 +81,19 @@ iframe{
   height: 300px;
 
  }
+
+#backgroundMain {
+  background-image: url(../images/SecondTable.jpg);
+ }
+#backgroundProfile {
+  background-image: url(../images/ProfileBackgroundNew.jpg);
+}
+
+.col-md-5 {background-color: white;
+}
+.mychart {
+  background-color: white
+}
+#profileChart {
+  background-color: white;
+}

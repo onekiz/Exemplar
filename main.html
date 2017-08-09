@@ -14,6 +14,7 @@
 
   </head>
   <body>
+  <div id="backgroundMain">
     <!-- navbar -->
     <nav class="navbar navbar-default">
       <div class="container-fluid">
@@ -35,7 +36,7 @@
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Search">
             </div>
-            <button id="newButton"  type="submit" class="btn btn-primary">Search</button>
+            <button id="newButton"  type="submit" class="btn btn-new">Search</button>
           </form>
 
             <form class="navbar-form navbar-right">
@@ -43,16 +44,18 @@
                 <a href="profile.html" class="btn btn-primary" role="button">Profile Page</a>
               </div> -->
               <div class="btn-group">
-                	<a href="profile.html" class="btn btn-primary right" role="button" id = "displayName"></a>
+                	<a href="profile.html" class="btn btn-new right" role="button" id = "displayName"></a>
             	</div>
               <div class="btn-group">
-                <button type="button" class="btn btn-primary dropdown-toggle logout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">LOG OUT</button>
+                <button type="button" class="btn btn-new dropdown-toggle logout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">LOG OUT</button>
               </div>
           </form>
           </div>
 
          </div><!-- container -->
+
         </nav>
+     
 
     <div class="container-fluid">
       <!-- navbar -->
@@ -87,20 +90,20 @@
 
         <div id='notes' class="col-md-4">
             <label> Time Spend on Article Read </label>
-            <canvas id="myChart" style = "box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset 0 -3px 3px rgba(0,0,0,0.1);" width="400" height="400"></canvas>
+            <canvas id="myChart" style = "box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset 0 -3px 3px rgba(0,0,0,0.1); background-color: white;" width="400" height="400"></canvas>
 
             <br> <br>
             <label> Number of Article Read </label>
-            <canvas id="myChartnumArticle" style = "box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset 0 -3px 3px rgba(0,0,0,0.1);" width="400" height="400"></canvas>
-
+            <canvas id="myChartnumArticle" style = "box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset 0 -3px 3px rgba(0,0,0,0.1); background-color: white" width="400" height="400"></canvas>
+        </div>
         <div>
-          <ol id="artRed"><h1>HELLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO</h1></ol>
+          <ol id="artRed"></ol>
         </div>
-        </div>
+
+        
 
       </div>
     </div><!-- container div -->
-  </div>
 
 
     <div class="container-fluid">
@@ -115,8 +118,9 @@
 
        </div>
     </div>
+   </div>
 
-
+</div>
     <script src="./assets/js/jquery-2.2.4.min.js" charset="utf-8"></script>
     <script src="./assets/js/bootstrap.min.js" charset="utf-8"></script>
     <script src="./assets/js/moment.js" charset="utf-8"></script>
