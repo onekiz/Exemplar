@@ -45,7 +45,7 @@
                 	<a href="main.html" class="btn btn-new" role="button">Main Page</a>
             	</div>
               <div class="btn-group">
-                <button type="button" class="btn btn-new" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">LOG OUT</button>
+                <button type="button" id = "logOut" class="btn btn-new">LOG OUT</button>
               </div>
           </form>
           
@@ -58,11 +58,11 @@
 <div class = "row-fluid">
 
 
-      <div class = "jumbotron" style = " margin-left: 20%; margin-right:20%; background-color: AliceBlue; box-shadow: 10px 10px 5px #888888, inset 0 -3px 3px rgba(0,0,0,0.1); border-radius: 50px;">
+      <div class = "jumbotron" style = " padding: 0px; margin-left: 30%; margin-right:30%; background-color: AliceBlue; box-shadow: 10px 10px 5px #888888, inset 0 -3px 3px rgba(0,0,0,0.1); border-radius: 50px;">
         <div class = "row">
           <div class = "col-md-12">
-            <img id = "userImg" src="" style = "width: 50%; heihgt: 50%; margin-left: 25%; border: 5px solid #9dffe3; border-radius: 100px; background-color: #8ab4c9;" alt="">
-            <h2 id = "userName" style = "text-align:center;"> name</h2>
+            <img id = "userImg" src="" style = "width: 70%; height: 200px; margin-top: 20px; margin:17%; border: 5px solid #9dffe3; border-radius: 100px; background-color: #8ab4c9;" alt="">
+            <h2 id = "userName" style = "text-align:center;"> name</h2>	
             <p id = "profession" style = "text-align:center;"> Profession </p>
             <p id = "country" style = "text-align:center;"> country </p>
           </div>
@@ -73,12 +73,12 @@
 
 
 
-<div class="container-fluid">
+<div class="container">
       <!-- navbar -->
-      <div class="row-fluid">
+      <div class="row">
 
-        <div class = "col-md-7" style = "box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset 0 -3px 3px rgba(0,0,0,0.1); background-color: white;">
-          <div class="row" id="personal">
+        <div class = "col-md-6" style = "box-shadow: 0 30px 60px rgba(0,0,0,0.3), inset -5px -5px 3px rgba(0,0,0,0.1); background-color: white;">
+          <div class="row" id="personal" style = "padding:10px;">
                         <div class="btn-group">
                             <button type="button"  style = "margin:5px;" class="btn btn-primary btnAboutMe">
                               About Me
@@ -91,10 +91,10 @@
                             </button>
                         </div>
 
-                        <div class = "listPaper hide" id="paper"> </div>
-                              <div id="aboutMe">About Me</div>
+                        <div class = "listPaper hide" id="paper" style = "margin: 10px; border-style: ridge; padding:5px;"> </div>
+                              <div id="aboutMe" style = "margin:10px; border-style: ridge; padding:5px; ">About Me</div>
 
-                            <button type="button" class="btn btn-primary btnEdit">
+                            <button style = "margin:10px;" type="button" class="btn btn-primary btnEdit">
                               Edit
                             </button>
                   </div>
@@ -104,27 +104,32 @@
         
 			
 
-        <div class = "col-md-4" style = "box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset 0 -3px 3px rgba(0,0,0,0.1); margin-bottom: 50px;">
-          
-          <div id="profileChart">
-          <label> Time Spend on Article Read </label>
-              <canvas id="myChart" width="400" height="400"></canvas>
-          </div>    <br><br>
-              <div id="profileChart">
-              <label> Number of Article Read </label>
-              <canvas id="myChartnumArticle" width="400" height="400"></canvas>
-              <br><br>
+        <div class = "col-md-5">
+
+                            <div id="profileChart" style = " padding: 10px; box-shadow: 0 30px 60px rgba(0,0,0,0.3), inset -5px  -5px 3px rgba(0,0,0,0.1);">
+                                    <h3 style = "margin: 5px;">Notes</h3>
+                                    <div id = "noteArea" style = "margin:10px; border-style: ridge; padding:7px;"></div>
+                                    <button style = "margin: 10px;" type="button" class="btn btn-primary btnEditNote" style = "margin-top:20px;">
+                                            Add
+                                    </button>
+                            </div>
+
+                            <br>
+
+                  <div id="profileChart" style = "box-shadow: 0 30px 60px rgba(0,0,0,0.3), inset -5px  -5px 3px rgba(0,0,0,0.1);" >
+                          <label style = "margin: 5px;"> Time Spend on Article Read </label>
+                      <canvas id="myChart" style = "margin: 5px;" width="400" height="400"></canvas>
+                  </div>
+
+                            <br>
+
+                            <div id="profileChart" style = "box-shadow: 0 30px 60px rgba(0,0,0,0.3), inset -5px  -5px 3px rgba(0,0,0,0.1);" >
+                      <label style = "margin: 5px;"> Number of Article Read </label>
+                      <canvas id="myChartnumArticle" style = "margin: 5px;" width="400" height="400"></canvas>
               </div>
-              <div id="profileChart">
-              <h3>Notes</h3>
-                  <div id = "noteArea" style = "margin-bottom:50px;"></div>
-                  <button type="button" class="btn btn-primary btnEditNote" style = "margin-top:20px;">
-                      Add
-                    </button>
-                    </div>
-
-
         </div>
+
+        
       </div>
     </div><!-- container div -->
 
@@ -183,6 +188,20 @@
 				$("#aboutMe").html("<h3>" + data.val()[user.uid]["aboutMe"] + "</h3>");
 				$("#country").html("<small>" + data.val()[user.uid]["country"] + "</small>");
 			});
+
+
+$(document).on('click', '#logOut', function () {
+  event.preventDefault();
+
+  firebase.auth().signOut().then(function () {
+              // Sign-out successful. Back to log in page
+    window.location = 'index.html';
+  }).catch(function (error) {
+              // Handling error
+    console.log(error);
+  });
+});
+
 
 
 $(document).on("click",".btnPaper", function(event){

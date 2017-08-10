@@ -268,7 +268,7 @@ firebase.auth().onAuthStateChanged(function (user) {
   }
 });
 
-$(document).on('click', '.btn.btn-primary.dropdown-toggle.logout', function () {
+$(document).on('click', '#logout', function () {
   event.preventDefault();
 
   firebase.auth().signOut().then(function () {
